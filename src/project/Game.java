@@ -43,12 +43,11 @@ public class Game implements State {
         // TODO implement here
     }
 
-    /**
-     * @return
-     */
-    public int start() {
+
+    @Override
+    public Status start() {
         // TODO implement here
-        return 0;
+        return null;
     }
 
 }

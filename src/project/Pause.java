@@ -23,9 +23,10 @@ public class Pause implements State {
     /**
      * @return
      */
-    public int start() {
+    @Override
+    public Status start() {
         // TODO implement here
-        return 0;
+        return null;
     }
 
 }

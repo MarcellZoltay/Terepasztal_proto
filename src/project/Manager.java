@@ -2,49 +2,40 @@ package project;
 
 import java.util.*;
 
-/**
- * 
- */
 public class Manager {
 
-    /**
-     * Default constructor
-     */
+    private Stack<State> states;
+    
     public Manager() {
+        states = new Stack<>();
+        Menu menu = new Menu();
+        states.add(menu);
     }
 
-    /**
-     * 
-     */
-    private State[] states;
-
-
-    /**
-     * 
-     */
-    public void Manager() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
     public void run() {
-        // TODO implement here
+        switch(states.peek().start()) {
+            case START_GAME: 
+                states.push(new Game());
+                break;
+            case EXIT_GAME:
+            case CRASHED:
+                states.push(new End());
+                break;
+            case CONTINUE:
+                states.pop();
+                break;
+            case PAUSE:
+                states.push(new Pause());
+                break;         
+        }
     }
-
-    /**
-     * @param s
-     */
+    
     private void addState(State s) {
-        // TODO implement here
+        
     }
 
-    /**
-     * @param s
-     */
     private void removeState(State s) {
-        // TODO implement here
+        
     }
 
 }
