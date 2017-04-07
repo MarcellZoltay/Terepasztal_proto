@@ -19,23 +19,51 @@ public class CoalCar extends Train {
     //******************************//
     /**
      * CoalCar osztály konstruktora.
+     *@param x Train x koordináta.
+     *@param y Train y koordináta.
+     *@param xEnd  A Train vége, x koordináta.
+     *@param yEnd A Train vége, y koordináta.
      *@param onnode Az aktuális csomópont amin tartózkodik a Train.
      *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
      *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
-     *@param xEnd  A Train vége, x koordináta.
-     *@param yEnd A Train vége, y koordináta.
      */
-    public CoalCar(Node onnode, Color color, Train nextCar, int xEnd, int yEnd) {
-        super(onnode, color, nextCar, xEnd, yEnd);
+    public CoalCar(int x, int y,int xEnd, int yEnd, Node onnode, Color color, Train nextCar) {
+        super(x, y, xEnd, yEnd,onnode, color, nextCar);
     }
     /**
      * CoalCar osztály konstruktora.
+     *@param x Train x koordináta.
+     *@param y Train y koordináta.
+     *@param xEnd  A Train vége, x koordináta.
+     *@param yEnd A Train vége, y koordináta.
      *@param onnode Az aktuális csomópont amin tartózkodik a Train.
      *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
+     */
+    public CoalCar(int x, int y,int xEnd, int yEnd, Node onnode, Color color) {
+        super(x, y, xEnd, yEnd,onnode, color);
+    }
+    /**
+     * CoalCar osztály konstruktora.
+     *@param x Train x koordináta.
+     *@param y Train y koordináta.
+     *@param xEnd  A Train vége, x koordináta.
+     *@param yEnd A Train vége, y koordináta.
+     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
      *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
      */
-    public CoalCar(Node onnode, Color color, Train nextCar) {
-        super(onnode, color, nextCar);
+    public CoalCar(int x, int y,int xEnd, int yEnd, Node onnode, Train nextCar) {
+        super(x, y, xEnd, yEnd,onnode, new Color(), nextCar);
+    }
+    /**
+     * CoalCar osztály konstruktora.
+     *@param x Train x koordináta.
+     *@param y Train y koordináta.
+     *@param xEnd  A Train vége, x koordináta.
+     *@param yEnd A Train vége, y koordináta.
+     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
+     */
+    public CoalCar(int x, int y,int xEnd, int yEnd, Node onnode) {
+        super(x, y, xEnd, yEnd,onnode, new Color());
     }
 
 

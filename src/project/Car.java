@@ -19,24 +19,29 @@ public class Car extends Train {
     //         Konstruktorok        //
     //******************************//
     /**
-     * Car/Vagon osztály konstruktora.
-     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
-     *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
-     *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
+     * Car osztály konstruktora.
+     *@param x Train x koordináta.
+     *@param y Train y koordináta.
      *@param xEnd  A Train vége, x koordináta.
      *@param yEnd A Train vége, y koordináta.
-     */
-    public Car(Node onnode, Color color, Train nextCar, int xEnd, int yEnd) {
-        super(onnode, color, nextCar, xEnd, yEnd);
-    }
-    /**
-     *Car/Vagon osztály konstruktora.
      *@param onnode Az aktuális csomópont amin tartózkodik a Train.
      *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
      *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
      */
-    public Car(Node onnode, Color color, Train nextCar) {
-        super(onnode, color, nextCar);
+    public Car(int x, int y,int xEnd,int yEnd, Node onnode, Color color, Train nextCar) {
+        super(x, y, xEnd, yEnd,onnode, color, nextCar);
+    }
+    /**
+     * Car osztály konstruktora.
+     *@param x Train x koordináta.
+     *@param y Train y koordináta.
+     *@param xEnd  A Train vége, x koordináta.
+     *@param yEnd A Train vége, y koordináta.
+     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
+     *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
+     */
+    public Car(int x, int y,int xEnd,int yEnd, Node onnode, Color color) {
+        super(x, y, xEnd, yEnd,onnode, color);
     }
 
     //******************************//
