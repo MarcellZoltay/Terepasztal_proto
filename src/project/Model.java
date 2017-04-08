@@ -344,7 +344,6 @@ public class Model {
                     if (next == null) { System.out.println("> there is no train with the name " + setnext + " to set next"); return null; }
                     if (!setNextTrain(setnext, train)) { System.out.println("> next train cannot be set for " + setnext); return null; }
                     if (!setPrevTrain(name, next)) { System.out.println("> previous train cannot be set for " + name); return null; }
-                    
                 }
                 if (!setprev.isEmpty()) {                   // Checks if user wants to change thain's prev Train. If yes then sets up the connection from the other way too
                     Train prev = getTrain(setprev);
