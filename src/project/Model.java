@@ -259,14 +259,14 @@ public class Model {
                     if (!setnext.isEmpty()) {                   // Checks if user wants to change node's nextNode. If yes, sets up the connection from the other way too
                         Node next = getNode(setnext);
                         if (next == null) { System.out.println("> there is no node with the name " + setnext + " to set next"); return null; }
-                        if (!setPrev(setnext, node)) { System.out.println("> next node cannot be set"); return null; }
-                        node.setNext(next);
+                        if (!setPrev(setnext, node)) { System.out.println("> previous node cannot be set for " + setnext); return null; }
+                        if (!setNext(name, next)) { System.out.println("> next node cannot be set for " + name); return null; }
                     }
                     if (!setprev.isEmpty()) {                   // Checks if user wants to change node's prevNode. If yes, sets up the connection from the other way too
                         Node prev = getNode(setprev);
                         if (prev == null) { System.out.println("> there is no node with the name " + setprev + " to set previous"); return null; }
-                        if (!setNext(setprev, node)) { System.out.println("> previous node cannot be set"); return null; }
-                        node.setPrev(prev);
+                        if (!setNext(setprev, node)) { System.out.println("> next node cannot be set for " + setprev); return null; }
+                        if (!setPrev(name, prev)) { System.out.println("> previous node cannot be set for " + name); return null; }
                     }
                 }
                 if (!remove.isEmpty()) {                        //Checks if user wants to remove a TunnelEntrance
@@ -307,13 +307,15 @@ public class Model {
                 if (!setnext.isEmpty()) {                   // Checks if user wants to change train's next Train. If yes then sets up the connection from the other way too
                     Train next = getTrain(setnext);
                     if (next == null) { System.out.println("> there is no train with the name " + setnext + " to set next"); return null; }
-                    if (!setNextTrain(setnext, train)) { System.out.println("> next train cannot be set"); return null; }
-                    train.setNextCar(next);
+                    if (!setNextTrain(setnext, train)) { System.out.println("> next train cannot be set for " + setnext); return null; }
+                    if (!setPrevTrain(name, next)) { System.out.println("> previous train cannot be set for " + name); return null; }
+                    
                 }
                 if (!setprev.isEmpty()) {                   // Checks if user wants to change thain's prev Train. If yes then sets up the connection from the other way too
                     Train prev = getTrain(setprev);
                     if (prev == null) { System.out.println("> there is no train with the name " + setprev + " to set previous"); return null; }
-                    if (!setPrevTrain(setprev, train)) { System.out.println("> previous train cannot be set"); return null; }
+                    if (!setPrevTrain(setprev, train)) { System.out.println("> previous train cannot be set for " + setprev); return null; }
+                    if (!setNextTrain(name, prev)) { System.out.println("> previous train cannot be set for " + name); return null; }
                     ((Car)train).setPrevTrain(prev);
                 }
                 if (!seton.isEmpty()) {                     // Checks if user wants to change the Node the Train is on
@@ -329,8 +331,7 @@ public class Model {
                     for (int i = 0; i < Integer.parseInt(steps); i++) {
                         Status s = moveEngines();
                         if (s == Status.CRASHED) return s;                                                  // Checks if the trains had crashed on the map
-                    }
-                        
+                    }      
                 break;
             case "ls":
                 break;

@@ -36,7 +36,7 @@ public class Game implements State {
                     load = command.split(" ", 2);
                     load = load[1].split("-l ");
                     try { 
-                        File f = new File("maps\\" + load[1]);
+                        File f = new File(System.getProperty("user.dir") + "\\maps\\" + load[1]);
                         Scanner loadFile = new Scanner(f);
                         while (loadFile.hasNextLine()) {
                             Status s = map.decideActions(loadFile.nextLine());
