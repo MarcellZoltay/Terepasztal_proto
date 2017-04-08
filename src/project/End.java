@@ -2,30 +2,19 @@ package project;
 
 import java.util.*;
 
-/**
- * 
- */
 public class End implements State {
 
-    /**
-     * Default constructor
-     */
-    public End() {
+    private Status output;
+
+    public End(Status e) {
+        this.output = e;
     }
 
-    /**
-     * 
-     */
-    public void End() {
-        // TODO implement here
-    }
-
-    /**
-     * @return
-     */
+    @Override
     public Status start() {
-        // TODO implement here
-        return null;
+        if (output == Status.GAME_WON) System.out.println("> Congrats! You won");
+        if (output == Status.CRASHED) System.out.println("> Trains crashed! You lost");
+        return Status.EXIT_GAME;
     }
 
 }

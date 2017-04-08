@@ -8,5 +8,6 @@ public enum Status {
     EXIT_GAME,
     CONTINUE,
     CRASHED,
-    PAUSE
+    PAUSE,
+    GAME_WON 
 }
