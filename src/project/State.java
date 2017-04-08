@@ -7,9 +7,6 @@ import java.util.*;
  */
 public interface State {
 
-    /**
-     * @return
-     */
-    public int start();
+    public Status start();
 
 }
