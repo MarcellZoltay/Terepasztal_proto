@@ -2,6 +2,11 @@ package project;
 
 import java.util.Scanner;
 
+/**
+ * Loads the game starting menu
+ * user can choose to start or quit
+ * @author Kunkli Richárd
+ */
 public class Menu implements State {
 
     public Menu() {

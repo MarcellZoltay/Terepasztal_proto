@@ -2,7 +2,10 @@ package project;
 
 import java.util.*;
 
-
+/**
+ * Prints the pause 'screen'. User either quits or continues
+ * @author Kunkli Richárd
+ */
 public class Pause implements State {
 
     public Pause() {

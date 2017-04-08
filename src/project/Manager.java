@@ -2,6 +2,11 @@ package project;
 
 import java.util.*;
 
+/** Basically it manages different menus in the game
+ * checks for one's return type, which is the users input, winning or losing
+ * then acts upon these scenarios, loads the next state(menu)
+ * @author Kunkli Richárd
+ */
 public class Manager {
 
     private Stack<State> states;
@@ -35,10 +40,16 @@ public class Manager {
         }
     }
     
+    /**
+     * Don't really need it since util.Stack has its own function
+     */
     private void addState(State s) {
         
     }
 
+    /**
+     * Don't really need it since util.Stack has its own function
+     */
     private void removeState(State s) {
         
     }

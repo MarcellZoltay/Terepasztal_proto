@@ -2,6 +2,10 @@ package project;
 
 import java.util.*;
 
+/**
+ * Loads two end game 'scenes' depending on the outcome
+ * @author Kunkli Richárd
+ */
 public class End implements State {
 
     private Status output;

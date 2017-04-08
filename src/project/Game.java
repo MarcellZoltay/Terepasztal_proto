@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
- * 
+ * The game itself
+ * @author Kunkli Richárd
  */
 public class Game implements State {
 
@@ -15,10 +16,14 @@ public class Game implements State {
         waitingTime = 1;
     }
     
-    private Model map;
-    private int numberOfTrains;
-    private double waitingTime;
+    private Model map;              // The model in which the elements are stored
+    private int numberOfTrains;     // The limit of how many trains can be added to the map
+    private double waitingTime;     // The waiting time between adding trains
 
+    /**
+     * The 'load' command got implemented here, because it just loads more of the commands it would already use
+     * @return 
+     */
     private Status read() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -34,7 +39,8 @@ public class Game implements State {
                         File f = new File("maps\\" + load[1]);
                         Scanner loadFile = new Scanner(f);
                         while (loadFile.hasNextLine()) {
-                            System.out.println(map.decideActions(loadFile.nextLine()));
+                            Status s = map.decideActions(loadFile.nextLine());
+                            if (s == Status.CRASHED || s == Status.GAME_WON) return s;
                         }
                     } catch (FileNotFoundException e) {
                         System.out.println("> file does not exist");
@@ -42,7 +48,8 @@ public class Game implements State {
                 }
             }
             else {
-                System.out.println(map.decideActions(command));
+                Status s = map.decideActions(command);
+                if (s == Status.CRASHED || s == Status.GAME_WON) return s;
             }
         } 
     }
