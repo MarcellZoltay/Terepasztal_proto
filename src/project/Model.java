@@ -235,7 +235,7 @@ public class Model {
                                 break;
                             case "Switch": 
                                 node = new Switch();
-                                if (change == null) ((Switch)node).changeOutput();          // Only Switches' and TunnelEntrances' output can be changed
+                                if (change == null) changeSwitch((Switch)node);          // Only Switches' output can be changed
                                 switches.put(name, (Switch)node);
                                 break;
                             case "Cross": 
@@ -244,7 +244,6 @@ public class Model {
                                 break;
                             case "TunnelEntrance": 
                                 node = new TunnelEntrance();
-                                if (change == null) ((TunnelEntrance)node).changeOutput();  // Only Switches' and TunnelEntrances' output can be changed
                                 tunnelEntrances.put(name, (TunnelEntrance)node);
                                 break;
                             default: System.out.println("> not valid node type"); return null; // Command must have a valid type
