@@ -285,6 +285,11 @@ public class Model {
                 }
                 break;
             case "move":
+                if (steps.isEmpty()) return "> missing steps parameter";
+                if (steps == null) moveEngines();
+                else
+                    for (int i = 0; i < Integer.parseInt(steps); i++)
+                        moveEngines();
                 break;
             case "ls":
                 break;
