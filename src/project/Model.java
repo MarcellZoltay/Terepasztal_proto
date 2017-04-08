@@ -1,6 +1,7 @@
 package project;
 
 import java.util.Map;
+import java.util.Set;
 
 /** Attributes are stored as a map hash, in order to be able to reference them by the user
  *  The final product wont have it like that, its just the purpose of the prototype
@@ -191,6 +192,40 @@ public class Model {
         return true;
     }
     
+    public String getName(Train train) {
+        Set<String> set;
+        set = engines.keySet();
+        for (String s : set)
+            if (engines.get(s) == (Engine)train) return s;
+        set = coalCars.keySet();
+        for (String s : set)
+            if (coalCars.get(s) == (CoalCar)train) return s;
+        set = cars.keySet();
+        for (String s : set)
+            if (cars.get(s) == (Car)train) return s;        
+        return null;
+    }
+    
+    public String getNodeName(Node node) {
+        Set<String> set;
+        set = rails.keySet();
+        for (String s : set)
+            if (rails.get(s) == (Rail)node) return s;
+        set = stations.keySet();
+        for (String s : set)
+            if (stations.get(s) == (Station)node) return s;
+        set = rails.keySet();
+        for (String s : set)
+            if (switches.get(s) == (Switch)node) return s;
+        set = switches.keySet();
+        for (String s : set)
+            if (rails.get(s) == (Cross)node) return s;
+        set = tunnelEntrances.keySet();
+        for (String s : set)
+            if (tunnelEntrances.get(s) == (TunnelEntrance)node) return s;
+        return null;
+    }
+    
     /**
      * Gets one command at a time, acts accordingly
      * @param code the command itself
@@ -216,8 +251,8 @@ public class Model {
         
         switch(parameters[0]) {                                     // Decides which command was called
             case "node":
-                if (name.isEmpty() || name == null) { System.out.println("> missing node name"); return null; }     // Command cannot function without a node name
-                if (type.isEmpty() || type == null) { System.out.println("> missing node type"); return null; }     // Command cannot function without a node type
+                if (name == null || name.isEmpty()) { System.out.println("> missing node name"); return null; }     // Command cannot function without a node name
+                if (type == null || type.isEmpty()) { System.out.println("> missing node type"); return null; }     // Command cannot function without a node type
                 if (!name.isEmpty() && !remove.isEmpty()) { System.out.println("> can't create and remove an object at the same time"); return null; } // Cannot create and remove objects at the same time
                 if (!name.isEmpty()) {                  // If the command sais to create or modify
                     Node node = getNode(name);          // Checks if the node was created earlier
@@ -275,8 +310,8 @@ public class Model {
                 }
                 break;
             case "train":
-                if (name.isEmpty() || name == null) { System.out.println("> missing train name"); return null; }    // Command cannot function without a train name
-                if (type.isEmpty() || type == null) { System.out.println("> missing train type"); return null; }    // Command cannot function without a train type
+                if (name == null || name.isEmpty()) { System.out.println("> missing train name"); return null; }    // Command cannot function without a train name
+                if (type == null || type.isEmpty()) { System.out.println("> missing train type"); return null; }    // Command cannot function without a train type
                 Train train = getTrain(name);           // Cheks if the train was created earlier
                 if (train == null) {                    // If not creates it accordingly, and puts it an appropriate map
                     switch(type) {
@@ -316,7 +351,6 @@ public class Model {
                     if (prev == null) { System.out.println("> there is no train with the name " + setprev + " to set previous"); return null; }
                     if (!setPrevTrain(setprev, train)) { System.out.println("> previous train cannot be set for " + setprev); return null; }
                     if (!setNextTrain(name, prev)) { System.out.println("> previous train cannot be set for " + name); return null; }
-                    ((Car)train).setPrevTrain(prev);
                 }
                 if (!seton.isEmpty()) {                     // Checks if user wants to change the Node the Train is on
                     Node on = getNode(seton);
@@ -325,8 +359,8 @@ public class Model {
                 }
                 break;
             case "move":
-                if (steps.isEmpty()) { System.out.println("> missing steps parameter"); return null; }      // Checks if command has steps option, but without parameter
-                if (steps == null) moveEngines();                                                           // If there are no options, then it calls the train mover function once
+                if (steps == null) { System.out.println("> missing steps parameter"); return null; }      // Checks if command has steps option, but without parameter
+                if (steps.isEmpty()) moveEngines();                                                           // If there are no options, then it calls the train mover function once
                 else                                                                                        // Calls it the number of times the parameter had
                     for (int i = 0; i < Integer.parseInt(steps); i++) {
                         Status s = moveEngines();
@@ -334,6 +368,66 @@ public class Model {
                     }      
                 break;
             case "ls":
+                if (type == null) { System.out.println("> missing type parameter"); return null; }
+                if (all == null || type.contains("Rail")) {
+                    rails.forEach((nodeName, node) -> {
+                    System.out.println(nodeName);
+                    System.out.println("nextNode: " + getNodeName(node.getNext()));
+                    System.out.println("prevNode: " + getNodeName(node.getPrev()));
+                    System.out.print("trains:");
+                    for (Train t : node.getTrains()) {
+                        System.out.print(" " + getName(t));
+                    }
+                    });
+                }
+                if (all == null || type.contains("Switch")) {
+                    switches.forEach((nodeName, node) -> {
+                    System.out.println(nodeName);
+                    System.out.println("nextNode: " + getNodeName(node.getNext()));
+                    System.out.println("next2Node: " + getNodeName(node.getSecond()));
+                    System.out.println("prevNode: " + getNodeName(node.getPrev()));
+                    System.out.print("trains:");
+                    for (Train t : node.getTrains()) {
+                        System.out.print(" " + getName(t));
+                    }
+                    });
+                }
+                if (all == null || type.contains("Station")) {
+                    stations.forEach((nodeName, node) -> {
+                    System.out.println(nodeName);
+                    System.out.println("nextNode: " + getNodeName(node.getNext()));
+                    System.out.println("prevNode: " + getNodeName(node.getPrev()));
+                    System.out.println("color: " + node.getColor().toString());
+                    System.out.print("trains:");
+                    for (Train t : node.getTrains()) {
+                        System.out.print(" " + getName(t));
+                    }
+                    });
+                }
+                if (all == null || type.contains("Cross")) {
+                    crosses.forEach((nodeName, node) -> {
+                    System.out.println(nodeName);
+                    System.out.println("nextNode: " + getNodeName(node.getNext()));
+                    System.out.println("next2Node: " + getNodeName(node.getNext2()));
+                    System.out.println("prevNode: " + getNodeName(node.getPrev()));
+                    System.out.println("prev2Node: " + getNodeName(node.getPrev2()));
+                    System.out.print("trains:");
+                    for (Train t : node.getTrains()) {
+                        System.out.print(" " + getName(t));
+                    }
+                    });
+                }
+                if (all == null || type.contains("TunnelEntrance")) {
+                    tunnelEntrances.forEach((nodeName, node) -> {
+                    System.out.println(nodeName);
+                    System.out.println("nextNode: " + getNodeName(node.getNext()));
+                    System.out.println("prevNode: " + getNodeName(node.getPrev()));
+                    System.out.print("trains:");
+                    for (Train t : node.getTrains()) {
+                        System.out.print(" " + getName(t));
+                    }
+                    });
+                }
                 break;
             default: System.out.println("> no command like that"); return null;
         }
