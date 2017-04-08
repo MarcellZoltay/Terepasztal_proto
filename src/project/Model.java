@@ -192,6 +192,11 @@ public class Model {
         return true;
     }
     
+    /**
+     * Finds the key, the Train was set to
+     * @param train the value which leads to a unique key
+     * @return returns the key, if there is one, else returns null
+     */
     public String getName(Train train) {
         Set<String> set;
         set = engines.keySet();
@@ -206,6 +211,11 @@ public class Model {
         return null;
     }
     
+    /**
+     * Finds the key, the Node was set to
+     * @param node the value which leads to a unique key
+     * @return returns the key, if there is one, else returns null
+     */
     public String getNodeName(Node node) {
         Set<String> set;
         set = rails.keySet();
@@ -292,16 +302,26 @@ public class Model {
                     }
                     else { System.out.println("> nodes must have two coordinates"); return null; }
                     if (!setnext.isEmpty()) {                   // Checks if user wants to change node's nextNode. If yes, sets up the connection from the other way too
-                        Node next = getNode(setnext);
-                        if (next == null) { System.out.println("> there is no node with the name " + setnext + " to set next"); return null; }
-                        if (!setPrev(setnext, node)) { System.out.println("> previous node cannot be set for " + setnext); return null; }
-                        if (!setNext(name, next)) { System.out.println("> next node cannot be set for " + name); return null; }
+                        String nexts[] = setnext.split(" ");
+                        Node next[] = null;
+                        if (nexts.length < 1 || nexts.length > 2){ System.out.println("> not the correct number of parameters"); return null; }
+                        for (int i = 0; i < nexts.length; i++) {
+                            next[i] = getNode(nexts[i]);
+                            if (next[i] == null) { System.out.println("> there is no node with the name " + nexts[i] + " to set previous"); return null; }
+                            if (!setNext(nexts[i], node)) { System.out.println("> next node cannot be set for " + nexts[i]); return null; }
+                            if (!setPrev(name, next[i])) { System.out.println("> previous node cannot be set for " + name); return null; }
+                        }
                     }
                     if (!setprev.isEmpty()) {                   // Checks if user wants to change node's prevNode. If yes, sets up the connection from the other way too
-                        Node prev = getNode(setprev);
-                        if (prev == null) { System.out.println("> there is no node with the name " + setprev + " to set previous"); return null; }
-                        if (!setNext(setprev, node)) { System.out.println("> next node cannot be set for " + setprev); return null; }
-                        if (!setPrev(name, prev)) { System.out.println("> previous node cannot be set for " + name); return null; }
+                        String prevs[] = setprev.split(" ");
+                        Node prev[] = null;
+                        if (prevs.length < 1 || prevs.length > 2){ System.out.println("> not the correct number of parameters"); return null; }
+                        for (int i = 0; i < prevs.length; i++) {
+                            prev[i] = getNode(prevs[i]);
+                            if (prev[i] == null) { System.out.println("> there is no train with the name " + prevs[i] + " to set previous"); return null; }
+                            if (!setPrev(prevs[i], node)) { System.out.println("> previous node cannot be set for " + prevs[i]); return null; }
+                            if (!setNext(name, prev[i])) { System.out.println("> next node cannot be set for " + name); return null; }
+                        }
                     }
                 }
                 if (!remove.isEmpty()) {                        //Checks if user wants to remove a TunnelEntrance
@@ -340,16 +360,26 @@ public class Model {
                 }
                 else { System.out.println("> trains must have four coordinates"); return null; }
                 if (!setnext.isEmpty()) {                   // Checks if user wants to change train's next Train. If yes then sets up the connection from the other way too
-                    Train next = getTrain(setnext);
-                    if (next == null) { System.out.println("> there is no train with the name " + setnext + " to set next"); return null; }
-                    if (!setNextTrain(setnext, train)) { System.out.println("> next train cannot be set for " + setnext); return null; }
-                    if (!setPrevTrain(name, next)) { System.out.println("> previous train cannot be set for " + name); return null; }
+                    String nexts[] = setnext.split(" ");
+                    Train next[] = null;
+                    if (nexts.length < 1 || nexts.length > 2){ System.out.println("> not the correct number of parameters"); return null; }
+                    for (int i = 0; i < nexts.length; i++) {
+                        next[i] = getTrain(nexts[i]);
+                        if (next[i] == null) { System.out.println("> there is no train with the name " + nexts[i] + " to set previous"); return null; }
+                        if (!setNextTrain(nexts[i], train)) { System.out.println("> next train cannot be set for " + nexts[i]); return null; }
+                        if (!setPrevTrain(name, next[i])) { System.out.println("> previous train cannot be set for " + name); return null; }
+                    }
                 }
                 if (!setprev.isEmpty()) {                   // Checks if user wants to change thain's prev Train. If yes then sets up the connection from the other way too
-                    Train prev = getTrain(setprev);
-                    if (prev == null) { System.out.println("> there is no train with the name " + setprev + " to set previous"); return null; }
-                    if (!setPrevTrain(setprev, train)) { System.out.println("> previous train cannot be set for " + setprev); return null; }
-                    if (!setNextTrain(name, prev)) { System.out.println("> previous train cannot be set for " + name); return null; }
+                    String prevs[] = setprev.split(" ");
+                    Train prev[] = null;
+                    if (prevs.length < 1 || prevs.length > 2){ System.out.println("> not the correct number of parameters"); return null; }
+                    for (int i = 0; i < prevs.length; i++) {
+                        prev[i] = getTrain(prevs[i]);
+                        if (prev[i] == null) { System.out.println("> there is no train with the name " + prevs[i] + " to set previous"); return null; }
+                        if (!setPrevTrain(prevs[i], train)) { System.out.println("> previous train cannot be set for " + prevs[i]); return null; }
+                        if (!setNextTrain(name, prev[i])) { System.out.println("> next train cannot be set for " + name); return null; }
+                    }
                 }
                 if (!seton.isEmpty()) {                     // Checks if user wants to change the Node the Train is on
                     Node on = getNode(seton);
