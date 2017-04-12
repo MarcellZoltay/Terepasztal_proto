@@ -118,9 +118,9 @@ public class Model {
             if (param.length() == keyShort.length() && param.contains(keyShort)) return null;
             if (param.length() == keyLong.length() && param.contains(keyLong))  return null;
             if (param.contains(keyShort + " "))
-                return param.substring(keyShort.length() + 2);
+                return param.substring(keyShort.length() + 1);
             if (param.contains(keyLong + " "))
-                return param.substring(keyLong.length() + 2);
+                return param.substring(keyLong.length() + 1);
         }
         return "";
     }
@@ -283,13 +283,16 @@ public class Model {
             change = checkParam(parameters, "o", "-change");
             all = checkParam(parameters, "a", "-all");
             steps = checkParam(parameters, "s", "-steps");
+            /*for(int i = 0; i < parameters.length; i++) {
+                System.out.println(parameters[i]);
+            }*/
         }
         
         switch(parameters[0]) {                                     // Decides which command was called
             case "node":
-                if (name == null || name.isEmpty()) throw new Exception("> missing node name");   // Command cannot function without a node name
-                if (type == null || type.isEmpty()) throw new Exception("> missing node type");     // Command cannot function without a node type
-                if (!name.isEmpty() && !remove.isEmpty()) throw new Exception("> can't create and remove an object at the same time"); // Cannot create and remove objects at the same time
+                if (name == null || name.isEmpty()) throw new Exception("missing node name");   // Command cannot function without a node name
+                if (type == null || type.isEmpty()) throw new Exception("missing node type");     // Command cannot function without a node type
+                if (!name.isEmpty() && !remove.isEmpty()) throw new Exception("can't create and remove an object at the same time"); // Cannot create and remove objects at the same time
                 if (!name.isEmpty()) {                  // If the command sais to create or modify
                     Node node = getNode(name);          // Checks if the node was created earlier
                     if (node == null) {                 // If not creates it accordingly, and puts it an appropriate map
@@ -301,7 +304,7 @@ public class Model {
                             case "Station": 
                                 node = new Station();
                                 if (!setcolor.isEmpty()) ((Station)node).setColor(setcolor);            // Stations must have colors
-                                else throw new Exception("> stations must have color");
+                                else throw new Exception("stations must have color");
                                 stations.put(name, (Station)node);
                                 break;
                             case "Switch": 
@@ -317,47 +320,47 @@ public class Model {
                                 node = new TunnelEntrance();
                                 tunnelEntrances.put(name, (TunnelEntrance)node);
                                 break;
-                            default: throw new Exception("> not valid node type"); // Command must have a valid type
+                            default: throw new Exception("not valid node type"); // Command must have a valid type
                         }
                     }
                     if (!coords.isEmpty()) {                    // Checks if user wants to change node's coordinates
                         String coord[] = coords.split(" ");
-                        if (coord.length != 2) throw new Exception("> a node has two coordinates");
+                        if (coord.length != 2) throw new Exception("a node has two coordinates");
                         node.setX(Integer.parseInt(coord[0]));
                         node.setY(Integer.parseInt(coord[1]));
                     }
-                    else throw new Exception("> nodes must have two coordinates");
+                    else throw new Exception("nodes must have two coordinates");
                     if (!setnext.isEmpty()) {                   // Checks if user wants to change node's nextNode. If yes, sets up the connection from the other way too
                         String nexts[] = setnext.split(" ");
                         Node next[] = null;
-                        if (nexts.length < 1 || nexts.length > 2) throw new Exception("> not the correct number of parameters");
+                        if (nexts.length < 1 || nexts.length > 2) throw new Exception("not the correct number of parameters");
                         for (int i = 0; i < nexts.length; i++) {
                             next[i] = getNode(nexts[i]);
-                            if (next[i] == null) throw new Exception("> there is no node with the name " + nexts[i] + " to set previous");
-                            if (!setNext(nexts[i], node)) throw new Exception("> next node cannot be set for " + nexts[i]);
-                            if (!setPrev(name, next[i])) throw new Exception("> previous node cannot be set for " + name);
+                            if (next[i] == null) throw new Exception("there is no node with the name " + nexts[i] + " to set previous");
+                            if (!setNext(nexts[i], node)) throw new Exception("next node cannot be set for " + nexts[i]);
+                            if (!setPrev(name, next[i])) throw new Exception("previous node cannot be set for " + name);
                         }
                     }
                     if (!setprev.isEmpty()) {                   // Checks if user wants to change node's prevNode. If yes, sets up the connection from the other way too
                         String prevs[] = setprev.split(" ");
                         Node prev[] = null;
-                        if (prevs.length < 1 || prevs.length > 2) throw new Exception("> not the correct number of parameters");
+                        if (prevs.length < 1 || prevs.length > 2) throw new Exception("not the correct number of parameters");
                         for (int i = 0; i < prevs.length; i++) {
                             prev[i] = getNode(prevs[i]);
-                            if (prev[i] == null) throw new Exception("> there is no train with the name " + prevs[i] + " to set previous");
-                            if (!setPrev(prevs[i], node)) throw new Exception("> previous node cannot be set for " + prevs[i]);
-                            if (!setNext(name, prev[i])) throw new Exception("> next node cannot be set for " + name);
+                            if (prev[i] == null) throw new Exception("there is no train with the name " + prevs[i] + " to set previous");
+                            if (!setPrev(prevs[i], node)) throw new Exception("previous node cannot be set for " + prevs[i]);
+                            if (!setNext(name, prev[i])) throw new Exception("next node cannot be set for " + name);
                         }
                     }
                 }
                 if (!remove.isEmpty()) {                        //Checks if user wants to remove a TunnelEntrance
-                    if (tunnelEntrances.get(remove) == null) throw new Exception("> there is no tunnel entrance with the name " + remove + " to remove");
+                    if (tunnelEntrances.get(remove) == null) throw new Exception("there is no tunnel entrance with the name " + remove + " to remove");
                     tunnelEntrances.remove(remove);
                 }
                 break;
             case "train":
-                if (name == null || name.isEmpty()) throw new Exception("> missing train name");    // Command cannot function without a train name
-                if (type == null || type.isEmpty()) throw new Exception("> missing train type");    // Command cannot function without a train type
+                if (name == null || name.isEmpty()) throw new Exception("missing train name");    // Command cannot function without a train name
+                if (type == null || type.isEmpty()) throw new Exception("missing train type");    // Command cannot function without a train type
                 Train train = getTrain(name);           // Cheks if the train was created earlier
                 if (train == null) {                    // If not creates it accordingly, and puts it an appropriate map
                     switch(type) {
@@ -373,48 +376,48 @@ public class Model {
                             train = new CoalCar();
                             coalCars.put(name, (CoalCar)train);
                             break;
-                        default: throw new Exception("> not valid train type");    // Command must have a valid type
+                        default: throw new Exception("not valid train type");    // Command must have a valid type
                     }
                 }
                 if (!coords.isEmpty()) {                    // Checks if user wants to change train's coordinates
                     String coord[] = coords.split(" ");
-                    if (coord.length != 4) throw new Exception("> a train has four coordinates");
+                    if (coord.length != 4) throw new Exception("a train has four coordinates");
                     train.setX(Integer.parseInt(coord[0]));
                     train.setY(Integer.parseInt(coord[1]));
                     train.setEndX(Integer.parseInt(coord[2]));
                     train.setEndY(Integer.parseInt(coord[3]));
                 }
-                else throw new Exception("> trains must have four coordinates");
+                else throw new Exception("trains must have four coordinates");
                 if (!setnext.isEmpty()) {                   // Checks if user wants to change train's next Train. If yes then sets up the connection from the other way too
                     String nexts[] = setnext.split(" ");
                     Train next[] = null;
-                    if (nexts.length < 1 || nexts.length > 2) throw new Exception("> not the correct number of parameters");
+                    if (nexts.length < 1 || nexts.length > 2) throw new Exception("not the correct number of parameters");
                     for (int i = 0; i < nexts.length; i++) {
                         next[i] = getTrain(nexts[i]);
-                        if (next[i] == null) throw new Exception("> there is no train with the name " + nexts[i] + " to set previous");
-                        if (!setNextTrain(nexts[i], train)) throw new Exception("> next train cannot be set for " + nexts[i]);
-                        if (!setPrevTrain(name, next[i])) throw new Exception("> previous train cannot be set for " + name);
+                        if (next[i] == null) throw new Exception("there is no train with the name " + nexts[i] + " to set previous");
+                        if (!setNextTrain(nexts[i], train)) throw new Exception("next train cannot be set for " + nexts[i]);
+                        if (!setPrevTrain(name, next[i])) throw new Exception("previous train cannot be set for " + name);
                     }
                 }
                 if (!setprev.isEmpty()) {                   // Checks if user wants to change thain's prev Train. If yes then sets up the connection from the other way too
                     String prevs[] = setprev.split(" ");
                     Train prev[] = null;
-                    if (prevs.length < 1 || prevs.length > 2) throw new Exception("> not the correct number of parameters");
+                    if (prevs.length < 1 || prevs.length > 2) throw new Exception("not the correct number of parameters");
                     for (int i = 0; i < prevs.length; i++) {
                         prev[i] = getTrain(prevs[i]);
-                        if (prev[i] == null) throw new Exception("> there is no train with the name " + prevs[i] + " to set previous");
-                        if (!setPrevTrain(prevs[i], train)) throw new Exception("> previous train cannot be set for " + prevs[i]);
-                        if (!setNextTrain(name, prev[i])) throw new Exception("> next train cannot be set for " + name);
+                        if (prev[i] == null) throw new Exception("there is no train with the name " + prevs[i] + " to set previous");
+                        if (!setPrevTrain(prevs[i], train)) throw new Exception("previous train cannot be set for " + prevs[i]);
+                        if (!setNextTrain(name, prev[i])) throw new Exception("next train cannot be set for " + name);
                     }
                 }
                 if (!seton.isEmpty()) {                     // Checks if user wants to change the Node the Train is on
                     Node on = getNode(seton);
-                    if (on == null) throw new Exception("> there is no node with the name " + seton + " to set as train's on node");
+                    if (on == null) throw new Exception("there is no node with the name " + seton + " to set as train's on node");
                     train.setOneNode(on);
                 }
                 break;
             case "move":
-                if (steps == null) throw new Exception("> missing steps parameter");      // Checks if command has steps option, but without parameter
+                if (steps == null) throw new Exception("missing steps parameter");      // Checks if command has steps option, but without parameter
                 if (steps.isEmpty()) moveEngines();                                                           // If there are no options, then it calls the train mover function once
                 else                                                                                        // Calls it the number of times the parameter had
                     for (int i = 0; i < Integer.parseInt(steps); i++) {
@@ -423,7 +426,7 @@ public class Model {
                     }      
                 break;
             case "ls":
-                if (type == null) throw new Exception("> missing type parameter");
+                if (type == null) throw new Exception("missing type parameter");
                 if (all == null || type.contains("Rail")) {
                     rails.forEach((nodeName, node) -> {
                     System.out.println(nodeName);
@@ -520,7 +523,7 @@ public class Model {
                     
                 }
                 break;
-            default: throw new Exception("> no command like that");
+            default: throw new Exception("no command like that");
         }
         return Status.CONTINUE;
     }
