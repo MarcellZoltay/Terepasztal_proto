@@ -3,16 +3,18 @@ package project;
 import java.util.*;
 
 /**
- * 
+ * A mozdonyt megvalósító osztály
  */
 public class Engine extends Train {
 
+    //******************************//
+    //         Konstruktorok        //
+    //******************************//
     /**
      * Default constructor
      */
     public Engine() {
     }
-
 
     /**
      * @param x 
@@ -21,8 +23,24 @@ public class Engine extends Train {
      * @param yE 
      * @param c
      */
-    public void Engine(int x, int y, int xE, int yE, Color c) {
-        // TODO implement here
+    public Engine(int x, int y, int xE, int yE, Node onNode, Color c) {
+        super(x, y, xE, yE, onNode, c);
+    }
+
+
+    //******************************//
+    //          Metodusok           //
+    //******************************//
+    @Override
+    public Status move(){
+
+        // CRASH
+
+        Node next = onNode.getNextNode(this);
+        prevNode = onNode;
+        onNode = next;
+
+        return nextCar.move();
     }
 
 }
