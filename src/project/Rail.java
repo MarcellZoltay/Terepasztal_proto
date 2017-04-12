@@ -9,9 +9,9 @@ public class Rail extends Node {
 
     /**
      * Default constructor
-     */
+     
     public Rail() {
-    }
+    }*/
 
 
     /**
