@@ -427,6 +427,7 @@ public class Model {
                 if (all == null || type.contains("Rail")) {
                     rails.forEach((nodeName, node) -> {
                     System.out.println(nodeName);
+                    System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
                     System.out.println("\tprevNode: " + getNodeName(node.getPrev()));
                     System.out.print("\ttrains:");
@@ -438,6 +439,7 @@ public class Model {
                 if (all == null || type.contains("Switch")) {
                     switches.forEach((nodeName, node) -> {
                     System.out.println(nodeName);
+                    System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
                     System.out.println("\tnext2Node: " + getNodeName(node.getSecond()));
                     System.out.println("\tprevNode: " + getNodeName(node.getPrev()));
@@ -450,6 +452,7 @@ public class Model {
                 if (all == null || type.contains("Station")) {
                     stations.forEach((nodeName, node) -> {
                     System.out.println(nodeName);
+                    System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
                     System.out.println("\tprevNode: " + getNodeName(node.getPrev()));
                     System.out.println("\tcolor: " + node.getColor().toString());
@@ -462,6 +465,7 @@ public class Model {
                 if (all == null || type.contains("Cross")) {
                     crosses.forEach((nodeName, node) -> {
                     System.out.println(nodeName);
+                    System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
                     System.out.println("\tnext2Node: " + getNodeName(node.getNext2()));
                     System.out.println("\tprevNode: " + getNodeName(node.getPrev()));
@@ -475,6 +479,7 @@ public class Model {
                 if (all == null || type.contains("TunnelEntrance")) {
                     tunnelEntrances.forEach((nodeName, node) -> {
                     System.out.println(nodeName);
+                    System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
                     System.out.println("\tprevNode: " + getNodeName(node.getPrev()));
                     System.out.print("\ttrains:");
@@ -484,30 +489,33 @@ public class Model {
                     });
                 }
                 if (all == null || type.contains("Engine") || type.contains("Train")) {
-                    engines.forEach(((trainName, trainObjext) -> {
+                    engines.forEach(((trainName, trainObject) -> {
                         System.out.println(trainName);
-                        System.out.println("\tonNode: " + getNodeName(trainObjext.getOnNode()));
-                        System.out.println("\tprevNode: " + getNodeName(trainObjext.getPrevNode()));
-                        System.out.println("\tnextCar: " + getTrain(trainObjext.getNextCar()));
+                        System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
+                        System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
+                        System.out.println("\tprevNode: " + getNodeName(trainObject.getPrevNode()));
+                        System.out.println("\tnextCar: " + getTrain(trainObject.getNextCar()));
                     }));
                 }
                 if (all == null || type.contains("Car") || type.contains("Train")) {
-                    cars.forEach(((trainName, trainObjext) -> {
+                    cars.forEach(((trainName, trainObject) -> {
                         System.out.println(trainName);
-                        System.out.println("\tonNode: " + getNodeName(trainObjext.getOnNode()));
-                        System.out.println("\tprevNode: " + getNodeName(trainObjext.getPrevNode()));
-                        System.out.println("\tnextTrain: " + getTrain(trainObjext.getNextCar()));
-                        System.out.println("\tprevTrain: " + getTrain(trainObjext.getPrevTrain()));
+                        System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
+                        System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
+                        System.out.println("\tprevNode: " + getNodeName(trainObject.getPrevNode()));
+                        System.out.println("\tnextTrain: " + getTrain(trainObject.getNextCar()));
+                        System.out.println("\tprevTrain: " + getTrain(trainObject.getPrevTrain()));
                     }));
                     
                 }
                 if (all == null || type.contains("CoalCar") || type.contains("Train")) {
-                    coalCars.forEach(((trainName, trainObjext) -> {
+                    coalCars.forEach(((trainName, trainObject) -> {
                         System.out.println(trainName);
-                        System.out.println("\tonNode: " + getNodeName(trainObjext.getOnNode()));
-                        System.out.println("\tprevNode: " + getNodeName(trainObjext.getPrevNode()));
-                        System.out.println("\tnextTrain: " + getTrain(trainObjext.getNextCar()));
-                        System.out.println("\tprevTrain: " + getTrain(trainObjext.getPrevTrain()));
+                        System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
+                        System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
+                        System.out.println("\tprevNode: " + getNodeName(trainObject.getPrevNode()));
+                        System.out.println("\tnextTrain: " + getTrain(trainObject.getNextCar()));
+                        System.out.println("\tprevTrain: " + getTrain(trainObject.getPrevTrain()));
                     }));
                     
                 }
