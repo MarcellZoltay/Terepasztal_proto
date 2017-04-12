@@ -26,6 +26,8 @@ public class Game implements State {
      */
     private Status read() {
         Scanner sc = new Scanner(System.in);
+        List<String> loadedFile = new ArrayList<>();
+        Status s = null;
         while (true) {
             String command = sc.nextLine();
             if (command.contentEquals("pause")) return Status.PAUSE;
@@ -37,19 +39,26 @@ public class Game implements State {
                     load = load[1].split("-l ");
                     try { 
                         File f = new File(System.getProperty("user.dir") + "\\maps\\" + load[1]);
-                        Scanner loadFile = new Scanner(f);
-                        while (loadFile.hasNextLine()) {
-                            Status s = map.decideActions(loadFile.nextLine());
-                            if (s == Status.CRASHED || s == Status.GAME_WON) return s;
+                        Scanner sf = new Scanner(f);
+                        while (sf.hasNextLine()) {
+                            loadedFile.add(sf.nextLine());
                         }
                     } catch (FileNotFoundException e) {
                         System.out.println("> file does not exist");
                     }
                 }
             }
-            else {
-                Status s = map.decideActions(command);
+            try {
+                if(loadedFile.size() > 0) {
+                    for(int i = 0; i < loadedFile.size(); i++)
+                        s = map.decideActions(loadedFile.get(i));
+                        if (s == Status.CRASHED || s == Status.GAME_WON) return s;
+                }
+                s = map.decideActions(command);
                 if (s == Status.CRASHED || s == Status.GAME_WON) return s;
+            } 
+            catch(Exception e) {
+                System.out.println("> " + e.getMessage());
             }
         } 
     }
