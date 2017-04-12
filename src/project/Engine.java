@@ -34,6 +34,8 @@ public class Engine extends Train {
     @Override
     public Status move(){
 
+        // CRASH
+
         Node next = onNode.getNextNode(this);
         prevNode = onNode;
         onNode = next;

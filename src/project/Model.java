@@ -88,12 +88,15 @@ public class Model {
      */
     public Status moveEngines() {
 
-        Status ret = null;
+        if(isMapEmpty())
+            return Status.GAME_WON;
+
         for (Map.Entry<String, Engine> engine : engines.entrySet()) {
-            ret = engine.getValue().move();
+            if(engine.getValue().move()==Status.CRASHED)
+                return Status.CRASHED;
         }
 
-        return ret;
+        return null;
     }
 
     /**
