@@ -3,16 +3,18 @@ package project;
 import java.util.*;
 
 /**
- * 
+ * A sínt megvalósító osztály
  */
 public class Rail extends Node {
 
+    //******************************//
+    //         Konstruktorok        //
+    //******************************//
     /**
      * Default constructor
      */
     public Rail() {
     }
-
 
     /**
      * @param x 
@@ -20,8 +22,11 @@ public class Rail extends Node {
      * @param n 
      * @param p
      */
-    public void Rail(int x, int y, Node n, Node p) {
-        // TODO implement here
+    public Rail(int x, int y, Node n, Node p) {
+        this.x = x;
+        this.y = y;
+        this.nextNode = n;
+        this.prevNode = p;
     }
 
 }

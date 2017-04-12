@@ -26,7 +26,7 @@ public abstract class Node extends MapItem {
     /**
      * 
      */
-    protected Node prevTrain;
+    protected Node prevNode;
 
 
     /**

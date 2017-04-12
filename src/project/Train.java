@@ -45,15 +45,15 @@ public abstract class Train extends MapItem {
      *@param y Train y koordináta.
      *@param xEnd  A Train vége, x koordináta.
      *@param yEnd A Train vége, y koordináta.
-     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
+     *@param onNode Az aktuális csomópont amin tartózkodik a Train.
      *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
      */
-    public Train(int x,int y,int xEnd, int yEnd, Node onnode, Color color){
+    public Train(int x,int y,int xEnd, int yEnd, Node onNode, Color color){
         this.x=x;
         this.y=y;
         this.xEnd=xEnd;
         this.yEnd=yEnd;
-        onNode=onnode;
+        this.onNode=onNode;
         this.color=color;
     }
     /**
@@ -62,12 +62,12 @@ public abstract class Train extends MapItem {
      *@param y Train y koordináta.
      *@param xEnd  A Train vége, x koordináta.
      *@param yEnd A Train vége, y koordináta.
-     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
+     *@param onNode Az aktuális csomópont amin tartózkodik a Train.
      *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
      *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
      */
-    public Train(int x,int y,int xEnd, int yEnd, Node onnode, Color color, Train nextCar){
-        this(x,y,xEnd,yEnd,onnode,color);
+    public Train(int x,int y,int xEnd, int yEnd, Node onNode, Color color, Train nextCar){
+        this(x,y,xEnd,yEnd,onNode,color);
         this.nextCar=nextCar;
     }
 
