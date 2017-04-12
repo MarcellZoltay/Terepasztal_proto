@@ -2,18 +2,16 @@ package project;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /** Attributes are stored as a map hash, in order to be able to reference them by the user
  *  The final product wont have it like that, its just the purpose of the prototype
  */
 public class Model {
 
-    /**
-     * Default constructor
-     */
-    public Model() {
-    }
-
+    //******************************//
+    //         Tagvaltozok          //
+    //******************************//
     /**
      * 
      */
@@ -59,19 +57,43 @@ public class Model {
      */
     private Map<String, TunnelEntrance> tunnelEntrances;
 
+
+    //******************************//
+    //         Konstruktorok        //
+    //******************************//
     /**
-     * 
+     * Konstruktor
+     * Inicializálja a tagváltozókat
      */
-    public void Model() {
-        // TODO implement here
+    public Model() {
+        view = new View();
+        engines = new TreeMap<>();
+        cars = new TreeMap<>();
+        coalCars = new TreeMap<>();
+        stations = new TreeMap<>();
+        rails = new TreeMap<>();
+        crosses = new TreeMap<>();
+        switches = new TreeMap<>();
+        tunnelEntrances = new TreeMap<>();
     }
 
+
+    //******************************//
+    //          Metodusok           //
+    //******************************//
     /**
-     * @return
+     * Meghívja a mozdonyok move() metódusát.
+     * Visszatér az aktuális mozdony állapotával.
+     * @return ret Az aktuális mozdony állapota.
      */
     public Status moveEngines() {
-        // TODO implement here
-        return null;
+
+        Status ret = null;
+        for (Map.Entry<String, Engine> engine : engines.entrySet()) {
+            ret = engine.getValue().move();
+        }
+
+        return ret;
     }
 
     /**
@@ -470,7 +492,7 @@ public class Model {
      * @param y2
      */
     private void addTunnelEntrance(int x1, int y1, int x2, int y2) {
-        // TODO implement here
+        //TunnelEntrance tE = new TunnelEntrance();
     }
 
     /**
@@ -478,13 +500,15 @@ public class Model {
      */
     private void removeTunnelEntrance(TunnelEntrance tE) {
         // TODO implement here
+        //tunnelEntrances.remove(tE);
     }
 
     /**
-     * @param s
+     * Átállítja a paraméterül kapott váltó kimenetét.
+     * @param s Az átállítandó váltó.
      */
     private void changeSwitch(Switch s) {
-        // TODO implement here
+        s.changeOutput();
     }
 
     /**
@@ -495,10 +519,14 @@ public class Model {
     }
 
     /**
-     * @return
+     * Eldönti, hogy van-e még vonat a pályán.
+     * Visszatér a megfelelő logikai értékkel.
+     * @return true - Ha üres a pálya.
+     * @return false - Ha nem üres a pálya.
      */
     private boolean isMapEmpty() {
-        // TODO implement here
+        if(engines.size()==0)
+            return true;
         return false;
     }
 
