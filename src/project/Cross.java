@@ -28,6 +28,9 @@ public class Cross extends Rail {
      * Default constructor
      */
     public Cross() {
+        super(0,0,null,null);
+        next2Node=null;
+        prev2Node=null;
     }
 
     /**
@@ -69,19 +72,19 @@ public class Cross extends Rail {
     //******************************//
     //       Getterek/Setterek      //
     //******************************//
-    public Node getNext2Node() {
+    public Node getNext2() {
         return next2Node;
     }
 
-    public void setNext2Node(Node next2Node) {
+    public void setNext2(Node next2Node) {
         this.next2Node = next2Node;
     }
 
-    public Node getPrev2Node() {
+    public Node getPrev2() {
         return prev2Node;
     }
 
-    public void setPrev2Node(Node prev2Node) {
+    public void setPrev2(Node prev2Node) {
         this.prev2Node = prev2Node;
     }
 

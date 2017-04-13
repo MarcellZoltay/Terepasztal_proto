@@ -9,5 +9,6 @@ public enum Status {
     CONTINUE,
     CRASHED,
     PAUSE,
-    GAME_WON 
+    GAME_WON,
+    DELETE_TRAIN
 }

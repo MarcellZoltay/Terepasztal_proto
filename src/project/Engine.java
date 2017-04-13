@@ -14,6 +14,7 @@ public class Engine extends Train {
      * Default constructor
      */
     public Engine() {
+        super(0,0,0,0,null,Color.ENGINE);
     }
 
     /**
@@ -35,6 +36,8 @@ public class Engine extends Train {
     public Status move(){
 
         // CRASH
+        List<Train> on = onNode.getNext().getTrains();
+        if(!on.isEmpty()) return Status.CRASHED;
 
         Node next = onNode.getNextNode(this);
         prevNode = onNode;
