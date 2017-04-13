@@ -12,9 +12,10 @@ public class Rail extends Node {
     //******************************//
     /**
      * Default constructor
-     
+     */
     public Rail() {
-    }*/
+        super(0,0,null,null);
+    }
 
     /**
      * @param x 
@@ -23,10 +24,7 @@ public class Rail extends Node {
      * @param p
      */
     public Rail(int x, int y, Node n, Node p) {
-        this.x = x;
-        this.y = y;
-        this.nextNode = n;
-        this.prevNode = p;
+        super(x,y,n,p);
     }
 
 }

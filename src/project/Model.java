@@ -66,7 +66,7 @@ public class Model {
      * Inicializálja a tagváltozókat
      */
     public Model() {
-        view = new View();
+        //view = new View();
         engines = new TreeMap<>();
         cars = new TreeMap<>();
         coalCars = new TreeMap<>();
@@ -92,8 +92,11 @@ public class Model {
             return Status.GAME_WON;
 
         for (Map.Entry<String, Engine> engine : engines.entrySet()) {
-            if(engine.getValue().move()==Status.CRASHED)
+            Status st = engine.getValue().move();
+            if(st == Status.CRASHED)
                 return Status.CRASHED;
+            else if(st == Status.DELETE_TRAIN)
+                removeTrain(engine.getValue());
         }
 
         return null;
@@ -354,8 +357,9 @@ public class Model {
                     }
                 }
                 if (!remove.isEmpty()) {                        //Checks if user wants to remove a TunnelEntrance
-                    if (tunnelEntrances.get(remove) == null) throw new Exception("there is no tunnel entrance with the name " + remove + " to remove");
-                    tunnelEntrances.remove(remove);
+                    //if (tunnelEntrances.get(remove) == null) throw new Exception("there is no tunnel entrance with the name " + remove + " to remove");
+                    //tunnelEntrances.remove(remove);
+                    removeTunnelEntrance(tunnelEntrances.get(remove));
                 }
                 break;
             case "train":
@@ -541,9 +545,8 @@ public class Model {
     /**
      * @param tE
      */
-    private void removeTunnelEntrance(TunnelEntrance tE) {
-        // TODO implement here
-        //tunnelEntrances.remove(tE);
+    private void removeTunnelEntrance(TunnelEntrance tE) throws Exception {
+        tunnelEntrances.remove(getNodeName(tE));
     }
 
     /**
@@ -558,7 +561,20 @@ public class Model {
      * @param trainPart
      */
     private void removeTrain(Train trainPart) {
-        // TODO implement here
+
+        if(trainPart.getNextCar()==null)
+            return;
+
+        Train next = trainPart.getNextCar();
+        if(trainPart.getColor()==Color.ENGINE)
+            engines.remove(getName(trainPart));
+        else if(trainPart.getColor()==Color.COAL_CAR)
+            coalCars.remove(getName(trainPart));
+        else
+            cars.remove(getName(trainPart));
+
+        removeTrain(next);
+
     }
 
     /**
