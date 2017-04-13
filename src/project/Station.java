@@ -3,14 +3,16 @@ package project;
 import java.util.*;
 
 /**
- * 
+ * osztaly ami megvalositja a
  */
 public class Station extends Node {
 
-    /**
-     * Default constructor
-     */
-    public Station() {
+    public Station(){
+        this.x = 0;
+        this.y = 0;
+        this.nextNode = null;
+        this.prevNode = null;
+        this.color = null;
     }
 
     /**
@@ -26,8 +28,13 @@ public class Station extends Node {
      * @param p 
      * @param c
      */
-    public void Station(int x, int y, Node n, Node p, Color c) {
+    public Station(int x, int y, Node n, Node p, Color c) {
         // TODO implement here
+        this.x = x;
+        this.y = y;
+        this.nextNode = n;
+        this.prevNode = p;
+        this.color = c;
     }
 
     /**
@@ -35,7 +42,11 @@ public class Station extends Node {
      */
     public Color getColor() {
         // TODO implement here
-        return null;
+        return color;
+    }
+
+    public void setColor(Color c){
+        this.color=c;
     }
 
 }
