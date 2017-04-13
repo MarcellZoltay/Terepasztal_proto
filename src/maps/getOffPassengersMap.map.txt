@@ -1,6 +1,0 @@
-node -c r1 -t Rail -C 0 1
-node -c r2 -t Rail -C 2 1
-node -c st1 -t Station -C 1 1 -sN r2 -sP r1 -sC Green
-train -c c1 -t Car -sO r1
-train -c e1 -t Engine -sN c1 -sO r1
-train -c c2 -t Car -sN null -sP c1 -sO r1
