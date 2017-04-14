@@ -18,6 +18,11 @@ public class Car extends Train {
     //******************************//
     //         Konstruktorok        //
     //******************************//
+    public Car(){
+        super();
+        prevTrain=null;
+    }
+
     /**
      * Car osztály konstruktora.
      *@param x Train x koordináta.
@@ -52,17 +57,21 @@ public class Car extends Train {
      * üres vagon színe-->Gray
      */
     public void getOffPassengers() {
-        //color=new Color(color+"-Gray");
+        if (!color.isEmpty())
+            color=color.opposit();
     }
     /**
-     *
      *A vagonban utazó utasok felszállítása, azonos színű állomáson
      * üres vagon színe-->Gray
      */
     public void getOnPassengers() {
-        //color=new Color("Ami voltm, szürke kiszedve");
+        if (color.isEmpty())
+            color=color.opposit();
     }
-
+    public Status move(){
+        super.move();
+        return null;
+    }
 
     //******************************//
     //       Getterek/Setterek      //

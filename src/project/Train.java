@@ -39,6 +39,16 @@ public abstract class Train extends MapItem {
     //******************************//
     //         Konstruktorok        //
     //******************************//
+    public Train(){
+        x=0;
+        y=0;
+        xEnd=0;
+        yEnd=0;
+        onNode=null;
+        color=null;
+        prevNode=null;
+
+    }
     /**
      * Train Absztract osztály konstruktor.
      *@param x Train x koordináta.
@@ -80,7 +90,17 @@ public abstract class Train extends MapItem {
      * @return Status, A mozgatás során játék kimenetére ható események visszajelzése.
      */
     public Status move() {
-        // TODO implement here
+        if (onNode.getNext()!=prevNode)
+            onNode=onNode.getNext();
+        else onNode=onNode.getPrev();
+        onNode.addTrain(this);
+        
+        x=onNode.getX();
+        y=onNode.getY();
+        yEnd=onNode.getY();
+        xEnd=onNode.getX();
+      //  if (nextCar!=null)
+      //      nextCar.move();
         return null;
     }
 
@@ -118,6 +138,8 @@ public abstract class Train extends MapItem {
     public void setOneNode(Node n) {
         prevNode=onNode;
         onNode=n;
+        x=n.getX();
+        y=n.getY();
     }
     /**
      * Getter metódus.

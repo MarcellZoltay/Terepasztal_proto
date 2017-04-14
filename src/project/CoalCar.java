@@ -17,30 +17,9 @@ public class CoalCar extends Train {
     //******************************//
     //         Konstruktorok        //
     //******************************//
-    /**
-     * CoalCar osztály konstruktora.
-     *@param x Train x koordináta.
-     *@param y Train y koordináta.
-     *@param xEnd  A Train vége, x koordináta.
-     *@param yEnd A Train vége, y koordináta.
-     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
-     *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
-     *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
-     */
-    public CoalCar(int x, int y,int xEnd, int yEnd, Node onnode, Color color, Train nextCar) {
-        super(x, y, xEnd, yEnd,onnode, color, nextCar);
-    }
-    /**
-     * CoalCar osztály konstruktora.
-     *@param x Train x koordináta.
-     *@param y Train y koordináta.
-     *@param xEnd  A Train vége, x koordináta.
-     *@param yEnd A Train vége, y koordináta.
-     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
-     *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
-     */
-    public CoalCar(int x, int y,int xEnd, int yEnd, Node onnode, Color color) {
-        super(x, y, xEnd, yEnd,onnode, color);
+    public CoalCar(){
+        super();
+        prevTrain=null;
     }
     /**
      * CoalCar osztály konstruktora.
@@ -51,8 +30,7 @@ public class CoalCar extends Train {
      *@param onnode Az aktuális csomópont amin tartózkodik a Train.
      *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
      */
-    public CoalCar(int x, int y,int xEnd, int yEnd, Node onnode, Train nextCar) {
-        super(x, y, xEnd, yEnd,onnode, new Color(), nextCar);
+    public CoalCar(int x, int y,int xEnd, int yEnd, Node onnode, Train nextCar) {super(x, y, xEnd, yEnd,onnode, Color.COAL_CAR, nextCar);
     }
     /**
      * CoalCar osztály konstruktora.
@@ -63,13 +41,16 @@ public class CoalCar extends Train {
      *@param onnode Az aktuális csomópont amin tartózkodik a Train.
      */
     public CoalCar(int x, int y,int xEnd, int yEnd, Node onnode) {
-        super(x, y, xEnd, yEnd,onnode, new Color());
+        super(x, y, xEnd, yEnd,onnode, Color.COAL_CAR);
     }
-
 
     //******************************//
     //          Metodusok           //
     //******************************//
+    public Status move(){
+        super.move();
+        return null;
+    }
     //******************************//
     //       Getterek/Setterek      //
     //******************************//
