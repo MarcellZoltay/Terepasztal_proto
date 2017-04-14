@@ -3,15 +3,21 @@ package project;
 import java.util.*;
 
 /**
- * 
+ * osztaly ami a valtot valositja meg
  */
 public class Switch extends Node {
 
     /**
      * Default constructor
      */
-    public Switch() {
+    public Switch(){
+        this.x=0;
+        this.y=0;
+        this.nextNode=null;
+        this.next2Node= null;
+        this.prevNode=null;
     }
+
 
     /**
      * 
@@ -20,36 +26,45 @@ public class Switch extends Node {
 
 
     /**
-     * @param x 
-     * @param y 
-     * @param n 
-     * @param n2 
-     * @param p
+     * @param x koordinata
+     * @param y koordinata
+     * @param n egyik kimenetcsomopont
+     * @param n2 masik kimenetcsomopont
+     * @param p elozo csomopont
      */
-    public void Switch(int x, int y, Node n, Node n2, Node p) {
+    public Switch(int x, int y, Node n, Node n2, Node p) {
         // TODO implement here
+        this.x = x;
+        this.y=y;
+        this.nextNode = n;
+        this.next2Node = n2;
+        this.prevNode  = p;
     }
 
     /**
-     * 
+     * megcsereli a valto kimenetet
      */
     public void changeOutput() {
         // TODO implement here
+        Node temp = nextNode;
+        nextNode = next2Node;
+        next2Node = temp;
     }
 
     /**
-     * @return
+     * @return visszater masik kimenetcsomoponttal
      */
     public Node getSecond() {
         // TODO implement here
-        return null;
+        return next2Node;
     }
 
     /**
-     * @param n2
+     * @param n2 beallitja a masik kimenetcsomopontot
      */
     public void setSecond(Node n2) {
         // TODO implement here
+        this.next2Node = n2;
     }
 
 }
