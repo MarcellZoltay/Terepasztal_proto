@@ -7,6 +7,9 @@ import java.util.*;
  */
 public class TunnelEntrance extends Switch {
 
+    //******************************//
+    //         Konstruktorok        //
+    //******************************//
     /**
      * Default constructor
      */
@@ -22,13 +25,7 @@ public class TunnelEntrance extends Switch {
      * @param p elozo csomopont
      */
     public TunnelEntrance(int x, int y, Node n, Node n2, Node p) {
-        // TODO implement here
         super(x, y, n, n2, p);
     }
-
-    /*@Override // ez nem feltétlen kell mert a két output állítás ugyanúgy működik
-    public void changeOutput(){
-
-    }*/
 
 }

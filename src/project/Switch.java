@@ -7,23 +7,25 @@ import java.util.*;
  */
 public class Switch extends Node {
 
+    //******************************//
+    //         Tagvaltozok          //
+    //******************************//
+    /**
+     * 
+     */
+    protected Node next2Node;
+
+
+    //******************************//
+    //         Konstruktorok        //
+    //******************************//
     /**
      * Default constructor
      */
     public Switch(){
-        this.x=0;
-        this.y=0;
-        this.nextNode=null;
-        this.next2Node= null;
-        this.prevNode=null;
+        super(0, 0, null, null);
+        this.next2Node = null;
     }
-
-
-    /**
-     * 
-     */
-    private Node next2Node;
-
 
     /**
      * @param x koordinata
@@ -33,29 +35,44 @@ public class Switch extends Node {
      * @param p elozo csomopont
      */
     public Switch(int x, int y, Node n, Node n2, Node p) {
-        // TODO implement here
-        this.x = x;
-        this.y=y;
-        this.nextNode = n;
+        super(x, y, n, p);
         this.next2Node = n2;
-        this.prevNode  = p;
     }
 
+
+    //******************************//
+    //          Metodusok           //
+    //******************************//
     /**
      * megcsereli a valto kimenetet
      */
     public void changeOutput() {
-        // TODO implement here
         Node temp = nextNode;
         nextNode = next2Node;
         next2Node = temp;
     }
 
+    @Override
+    public Node getNextNode(Train t){
+        Node ret = null;
+
+        if(t.getPrevNode().equals(nextNode))
+            ret = prevNode;
+        else if(t.getPrevNode().equals(prevNode))
+            ret = nextNode;
+        else if(t.getPrevNode().equals(next2Node))
+            ret = prevNode;
+
+        return ret;
+    }
+
+    //******************************//
+    //       Getterek/Setterek      //
+    //******************************//
     /**
      * @return visszater masik kimenetcsomoponttal
      */
     public Node getSecond() {
-        // TODO implement here
         return next2Node;
     }
 
@@ -63,7 +80,6 @@ public class Switch extends Node {
      * @param n2 beallitja a masik kimenetcsomopontot
      */
     public void setSecond(Node n2) {
-        // TODO implement here
         this.next2Node = n2;
     }
 

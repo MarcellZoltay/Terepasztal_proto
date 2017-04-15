@@ -5,14 +5,9 @@ package project;
  */
 public abstract class MapItem {
 
-    /**
-     * Default constructor
-     */
-    public MapItem() {
-        this.x = 0;
-        this.y=0;
-    }
-
+    //******************************//
+    //         Tagvaltozok          //
+    //******************************//
     /**
      * x koordinata
      */
@@ -23,11 +18,26 @@ public abstract class MapItem {
      */
     protected int y;
 
+
+    //******************************//
+    //         Konstruktorok        //
+    //******************************//
+    /**
+     * Konstruktor
+     */
+    public MapItem(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+
+    //******************************//
+    //       Getterek/Setterek      //
+    //******************************//
     /**
      * @return visszater az x koordinataval
      */
     public int getX() {
-        // TODO implement here
         return x;
     }
 
@@ -35,7 +45,6 @@ public abstract class MapItem {
      * @return isszater az y koordinataval
      */
     public int getY() {
-        // TODO implement here
         return y;
     }
 

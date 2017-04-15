@@ -417,7 +417,7 @@ public class Model {
                 if (!seton.isEmpty()) {                     // Checks if user wants to change the Node the Train is on
                     Node on = getNode(seton);
                     if (on == null) throw new Exception("there is no node with the name " + seton + " to set as train's on node");
-                    train.setOneNode(on);
+                    train.setOnNode(on);
                 }
                 break;
             case "move":

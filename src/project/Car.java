@@ -6,6 +6,7 @@ import java.util.*;
  * A Car osztály, Vagon megvalósítása.
  */
 public class Car extends Train {
+
     //******************************//
     //         Tagvaltozok          //
     //******************************//
@@ -29,12 +30,12 @@ public class Car extends Train {
      *@param y Train y koordináta.
      *@param xEnd  A Train vége, x koordináta.
      *@param yEnd A Train vége, y koordináta.
-     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
+     *@param onNode Az aktuális csomópont amin tartózkodik a Train.
      *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
      *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
      */
-    public Car(int x, int y,int xEnd,int yEnd, Node onnode, Color color, Train nextCar) {
-        super(x, y, xEnd, yEnd,onnode, color, nextCar);
+    public Car(int x, int y,int xEnd,int yEnd, Node onNode, Color color, Train nextCar) {
+        super(x, y, xEnd, yEnd, onNode, color, nextCar);
     }
     /**
      * Car osztály konstruktora.
@@ -42,12 +43,13 @@ public class Car extends Train {
      *@param y Train y koordináta.
      *@param xEnd  A Train vége, x koordináta.
      *@param yEnd A Train vége, y koordináta.
-     *@param onnode Az aktuális csomópont amin tartózkodik a Train.
+     *@param onNode Az aktuális csomópont amin tartózkodik a Train.
      *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
      */
-    public Car(int x, int y,int xEnd,int yEnd, Node onnode, Color color) {
-        super(x, y, xEnd, yEnd,onnode, color);
+    public Car(int x, int y,int xEnd,int yEnd, Node onNode, Color color) {
+        super(x, y, xEnd, yEnd, onNode, color);
     }
+
 
     //******************************//
     //          Metodusok           //
@@ -72,6 +74,7 @@ public class Car extends Train {
         super.move();
         return null;
     }
+
 
     //******************************//
     //       Getterek/Setterek      //

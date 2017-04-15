@@ -7,6 +7,7 @@ import java.util.*;
  * Mozdony, Szenesvagon, Személyi-vagon alapjául szolgál.
  */
 public abstract class Train extends MapItem {
+
     //******************************//
     //         Tagvaltozok          //
     //******************************//
@@ -40,14 +41,12 @@ public abstract class Train extends MapItem {
     //         Konstruktorok        //
     //******************************//
     public Train(){
-        x=0;
-        y=0;
-        xEnd=0;
-        yEnd=0;
-        onNode=null;
-        color=null;
-        prevNode=null;
-
+        super(0, 0);
+        xEnd = 0;
+        yEnd = 0;
+        onNode = null;
+        prevNode = null;
+        color = null;
     }
     /**
      * Train Absztract osztály konstruktor.
@@ -59,12 +58,11 @@ public abstract class Train extends MapItem {
      *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
      */
     public Train(int x,int y,int xEnd, int yEnd, Node onNode, Color color){
-        this.x=x;
-        this.y=y;
-        this.xEnd=xEnd;
-        this.yEnd=yEnd;
-        this.onNode=onNode;
-        this.color=color;
+        super(x, y);
+        this.xEnd = xEnd;
+        this.yEnd = yEnd;
+        this.onNode = onNode;
+        this.color = color;
     }
     /**
      * Train Absztract osztály konstruktor.
@@ -77,8 +75,8 @@ public abstract class Train extends MapItem {
      *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
      */
     public Train(int x,int y,int xEnd, int yEnd, Node onNode, Color color, Train nextCar){
-        this(x,y,xEnd,yEnd,onNode,color);
-        this.nextCar=nextCar;
+        this(x, y, xEnd, yEnd, onNode, color);
+        this.nextCar = nextCar;
     }
 
 
@@ -115,48 +113,50 @@ public abstract class Train extends MapItem {
     public int getEndX() {
         return xEnd;
     }
+
     /**
      * Getter metódus.
      * @return int A Train vége, y koordináta.
      */
     public int getEndY() {
-        // TODO implement here
         return yEnd;
     }
+
     /**
      * Getter metódus.
      * @return Az aktuális Node lekérdezése amin , akihez tartozkodik/tartozik a Train.
      */
     public Node getOnNode() {
-        // TODO implement here
         return onNode;
     }
+
     /**
      * Setter metódus.
      * @param n Az aktuális Node beállítása amin , akihez tartozkodik/tartozik a Train.
      */
-    public void setOneNode(Node n) {
-        prevNode=onNode;
+    public void setOnNode(Node n) {
+        prevNode=onNode; // ?????
         onNode=n;
-        x=n.getX();
-        y=n.getY();
+        x=n.getX(); // ?????
+        y=n.getY(); // ?????
     }
+
     /**
      * Getter metódus.
      * @return Node Az elöző Node lekérdezése amin , akihez tartozkodott/tartozott a Train.
      */
     public Node getPrevNode() {
-        // TODO implement here
         return prevNode;
     }
+
     /**
      * Setter metódus.
      * @param p Az elöző Node beállítása amin , akihez tartozkodott/tartozott a Train.
      */
     public void setPrevNode(Node p) {
-        prevNode=p;
-        // TODO implement here
+        prevNode = p;
     }
+
     /**
      * Getter metódus.
      * @return A Train elemet követő Train elem lekérdezése a szerelvényben, utolsó elem esetén null.
@@ -164,13 +164,15 @@ public abstract class Train extends MapItem {
     public Train getNextCar() {
         return nextCar;
     }
+
     /**
      * Setter metódus.
      * @param train A Train elemet követő Train elem beállítása a szerelvényben, utolsó elem esetén null.
      */
     public void setNextCar(Train train) {
-        nextCar=train;
+        nextCar = train;
     }
+
     /**
      * Getter metódus.
      * @return Color A Train elem színének lekérdezése
@@ -178,4 +180,20 @@ public abstract class Train extends MapItem {
     public Color getColor() {
         return color;
     }
+
+    /**
+     *
+     */
+    public void setEndX(int x) { xEnd = x; }
+
+    /**
+     *
+     */
+    public void setEndY(int y) { yEnd = y; }
+
+    /**
+     *
+     */
+    public void setColor(Color c) { color = c; }
+
 }

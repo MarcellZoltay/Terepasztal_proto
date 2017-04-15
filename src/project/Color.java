@@ -32,6 +32,7 @@ public enum Color {
             default: return this;
         }
     }
+
     public boolean isEmpty(){
         switch(this) {
             case BLUE: return false;
@@ -46,8 +47,6 @@ public enum Color {
             case PINK_GRAY: return true;
             default: return true;
         }
-
-
-
     }
+
 }
