@@ -306,7 +306,7 @@ public class Model {
                                 break;
                             case "Station": 
                                 node = new Station();
-                                if (!setcolor.isEmpty()) ((Station)node).setColor(setcolor);            // Stations must have colors
+                                if (!setcolor.isEmpty()) ((Station)node).setColor(Color.getColorEnum(setcolor));            // Stations must have colors
                                 else throw new Exception("stations must have color");
                                 stations.put(name, (Station)node);
                                 break;
@@ -501,7 +501,7 @@ public class Model {
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
                         System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
                         System.out.println("\tprevNode: " + getNodeName(trainObject.getPrevNode()));
-                        System.out.println("\tnextCar: " + getTrain(trainObject.getNextCar()));
+                        System.out.println("\tnextCar: " + getName(trainObject.getNextCar()));
                     }));
                 }
                 if (all == null || type.contains("Car") || type.contains("Train")) {
@@ -510,8 +510,8 @@ public class Model {
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
                         System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
                         System.out.println("\tprevNode: " + getNodeName(trainObject.getPrevNode()));
-                        System.out.println("\tnextTrain: " + getTrain(trainObject.getNextCar()));
-                        System.out.println("\tprevTrain: " + getTrain(trainObject.getPrevTrain()));
+                        System.out.println("\tnextTrain: " + getName(trainObject.getNextCar()));
+                        System.out.println("\tprevTrain: " + getName(trainObject.getPrevTrain()));
                     }));
                     
                 }
@@ -521,8 +521,8 @@ public class Model {
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
                         System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
                         System.out.println("\tprevNode: " + getNodeName(trainObject.getPrevNode()));
-                        System.out.println("\tnextTrain: " + getTrain(trainObject.getNextCar()));
-                        System.out.println("\tprevTrain: " + getTrain(trainObject.getPrevTrain()));
+                        System.out.println("\tnextTrain: " + getName(trainObject.getNextCar()));
+                        System.out.println("\tprevTrain: " + getName(trainObject.getPrevTrain()));
                     }));
                     
                 }
