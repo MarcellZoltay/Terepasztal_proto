@@ -398,8 +398,8 @@ public class Model {
                     if (nexts.length < 1 || nexts.length > 2) throw new Exception("not the correct number of parameters");
                     next = getTrain(nexts[0]);
                     if (next == null) throw new Exception("there is no train with the name " + nexts[0] + " to set previous");
-                    if (!setNextTrain(nexts[0], train)) throw new Exception("next train cannot be set for " + nexts[0]);
-                    if (!setPrevTrain(name, next)) throw new Exception("previous train cannot be set for " + name);
+                    if (!setPrevTrain(nexts[0], train)) throw new Exception("previous train cannot be set for " + nexts[0]);
+                    if (!setNextTrain(name, next)) throw new Exception("next train cannot be set for " + name);
                 }
                 if (!setprev.isEmpty()) {                   // Checks if user wants to change thain's prev Train. If yes then sets up the connection from the other way too
                     String prevs[] = setprev.split(" ");
@@ -407,8 +407,8 @@ public class Model {
                     if (prevs.length < 1 || prevs.length > 2) throw new Exception("not the correct number of parameters");
                     prev = getTrain(prevs[0]);
                     if (prev == null) throw new Exception("there is no train with the name " + prevs[0] + " to set previous");
-                    if (!setPrevTrain(prevs[0], train)) throw new Exception("previous train cannot be set for " + prevs[0]);
-                    if (!setNextTrain(name, prev)) throw new Exception("next train cannot be set for " + name);
+                    if (!setNextTrain(prevs[0], train)) throw new Exception("next train cannot be set for " + prevs[0]);
+                    if (!setPrevTrain(name, prev)) throw new Exception("previous train cannot be set for " + name);
                 }
                 if (!seton.isEmpty()) {                     // Checks if user wants to change the Node the Train is on
                     Node on = getNode(seton);
