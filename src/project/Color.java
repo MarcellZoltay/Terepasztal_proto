@@ -49,4 +49,21 @@ public enum Color {
         }
     }
 
+    public static Color getColorEnum(String s){
+        Color ret = null;
+
+        if(s.equalsIgnoreCase("BLUE"))
+            ret = BLUE;
+        else if(s.equalsIgnoreCase("RED"))
+            ret = RED;
+        else if(s.equalsIgnoreCase("GREEN"))
+            ret = GREEN;
+        else if(s.equalsIgnoreCase("YELLOW"))
+            ret = YELLOW;
+        else if(s.equalsIgnoreCase("PINK"))
+            ret = PINK;
+
+        return ret;
+    }
+
 }
