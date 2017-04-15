@@ -50,15 +50,20 @@ public class Game implements State {
             }
             try {
                 if(loadedFile.size() > 0) {
-                    for(int i = 0; i < loadedFile.size(); i++)
+                    for(int i = 0; i < loadedFile.size(); i++) {
                         s = map.decideActions(loadedFile.get(i));
                         if (s == Status.CRASHED || s == Status.GAME_WON) return s;
+                    }
+                    loadedFile = new ArrayList<>();
                 }
-                s = map.decideActions(command);
-                if (s == Status.CRASHED || s == Status.GAME_WON) return s;
+                else {
+                    s = map.decideActions(command);
+                    if (s == Status.CRASHED || s == Status.GAME_WON) return s;  
+                }
             } 
             catch(Exception e) {
                 System.out.println("> " + e.getMessage());
+                e.printStackTrace();
             }
         } 
     }

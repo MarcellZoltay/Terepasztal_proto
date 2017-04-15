@@ -135,10 +135,8 @@ public abstract class Train extends MapItem {
      * @param n Az aktuális Node beállítása amin , akihez tartozkodik/tartozik a Train.
      */
     public void setOnNode(Node n) {
-        prevNode=onNode; // ?????
+        prevNode=onNode;
         onNode=n;
-        x=n.getX(); // ?????
-        y=n.getY(); // ?????
     }
 
     /**

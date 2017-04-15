@@ -118,11 +118,11 @@ public class Model {
      */
     private String checkParam(String params[], String keyShort, String keyLong) {
         for (String param : params) {
-            if (param.length() == keyShort.length() && param.contains(keyShort)) return null;
-            if (param.length() == keyLong.length() && param.contains(keyLong))  return null;
-            if (param.contains(keyShort + " "))
+            if (param.length() == keyShort.length() && param.startsWith(keyShort)) return null;
+            if (param.length() == keyLong.length() && param.startsWith(keyLong))  return null;
+            if (param.startsWith(keyShort + " "))
                 return param.substring(keyShort.length() + 1);
-            if (param.contains(keyLong + " "))
+            if (param.startsWith(keyLong + " "))
                 return param.substring(keyLong.length() + 1);
         }
         return "";
@@ -226,17 +226,18 @@ public class Model {
      * @return returns the key, if there is one, else returns null
      */
     public String getName(Train train) {
+        if (train == null) return null;
         Set<String> set;
         set = engines.keySet();
         for (String s : set)
-            if (engines.get(s) == (Engine)train) return s;
+            if ((Train)engines.get(s) == train) return s;
         set = coalCars.keySet();
         for (String s : set)
-            if (coalCars.get(s) == (CoalCar)train) return s;
+            if ((Train)coalCars.get(s) == train) return s;
         set = cars.keySet();
         for (String s : set)
-            if (cars.get(s) == (Car)train) return s;        
-        return null;
+            if ((Train)cars.get(s) == train) return s;        
+        return "Error";
     }
     
     /**
@@ -245,6 +246,7 @@ public class Model {
      * @return returns the key, if there is one, else returns null
      */
     public String getNodeName(Node node) {
+        if (node == null) return null;
         Set<String> set;
         set = rails.keySet();
         for (String s : set)
@@ -261,7 +263,7 @@ public class Model {
         set = tunnelEntrances.keySet();
         for (String s : set)
             if (tunnelEntrances.get(s) == (TunnelEntrance)node) return s;
-        return null;
+        return "Error";
     }
     
     /**
@@ -332,27 +334,26 @@ public class Model {
                         node.setX(Integer.parseInt(coord[0]));
                         node.setY(Integer.parseInt(coord[1]));
                     }
-                    else throw new Exception("nodes must have two coordinates");
                     if (!setnext.isEmpty()) {                   // Checks if user wants to change node's nextNode. If yes, sets up the connection from the other way too
                         String nexts[] = setnext.split(" ");
-                        Node next[] = null;
+                        Node next[] = new Node[2];
                         if (nexts.length < 1 || nexts.length > 2) throw new Exception("not the correct number of parameters");
                         for (int i = 0; i < nexts.length; i++) {
                             next[i] = getNode(nexts[i]);
                             if (next[i] == null) throw new Exception("there is no node with the name " + nexts[i] + " to set previous");
-                            if (!setNext(nexts[i], node)) throw new Exception("next node cannot be set for " + nexts[i]);
-                            if (!setPrev(name, next[i])) throw new Exception("previous node cannot be set for " + name);
+                            if (!setPrev(nexts[i], node)) throw new Exception("previous node cannot be set for " + nexts[i]);
+                            if (!setNext(name, next[i])) throw new Exception("next node cannot be set for " + name);
                         }
                     }
                     if (!setprev.isEmpty()) {                   // Checks if user wants to change node's prevNode. If yes, sets up the connection from the other way too
                         String prevs[] = setprev.split(" ");
-                        Node prev[] = null;
+                        Node prev[] = new Node[2];
                         if (prevs.length < 1 || prevs.length > 2) throw new Exception("not the correct number of parameters");
                         for (int i = 0; i < prevs.length; i++) {
                             prev[i] = getNode(prevs[i]);
                             if (prev[i] == null) throw new Exception("there is no train with the name " + prevs[i] + " to set previous");
-                            if (!setPrev(prevs[i], node)) throw new Exception("previous node cannot be set for " + prevs[i]);
-                            if (!setNext(name, prev[i])) throw new Exception("next node cannot be set for " + name);
+                            if (!setNext(prevs[i], node)) throw new Exception("next node cannot be set for " + prevs[i]);
+                            if (!setPrev(name, prev[i])) throw new Exception("previous node cannot be set for " + name);
                         }
                     }
                 }
@@ -391,33 +392,29 @@ public class Model {
                     train.setEndX(Integer.parseInt(coord[2]));
                     train.setEndY(Integer.parseInt(coord[3]));
                 }
-                else throw new Exception("trains must have four coordinates");
                 if (!setnext.isEmpty()) {                   // Checks if user wants to change train's next Train. If yes then sets up the connection from the other way too
                     String nexts[] = setnext.split(" ");
-                    Train next[] = null;
+                    Train next;
                     if (nexts.length < 1 || nexts.length > 2) throw new Exception("not the correct number of parameters");
-                    for (int i = 0; i < nexts.length; i++) {
-                        next[i] = getTrain(nexts[i]);
-                        if (next[i] == null) throw new Exception("there is no train with the name " + nexts[i] + " to set previous");
-                        if (!setNextTrain(nexts[i], train)) throw new Exception("next train cannot be set for " + nexts[i]);
-                        if (!setPrevTrain(name, next[i])) throw new Exception("previous train cannot be set for " + name);
-                    }
+                    next = getTrain(nexts[0]);
+                    if (next == null) throw new Exception("there is no train with the name " + nexts[0] + " to set previous");
+                    if (!setNextTrain(nexts[0], train)) throw new Exception("next train cannot be set for " + nexts[0]);
+                    if (!setPrevTrain(name, next)) throw new Exception("previous train cannot be set for " + name);
                 }
                 if (!setprev.isEmpty()) {                   // Checks if user wants to change thain's prev Train. If yes then sets up the connection from the other way too
                     String prevs[] = setprev.split(" ");
-                    Train prev[] = null;
+                    Train prev;
                     if (prevs.length < 1 || prevs.length > 2) throw new Exception("not the correct number of parameters");
-                    for (int i = 0; i < prevs.length; i++) {
-                        prev[i] = getTrain(prevs[i]);
-                        if (prev[i] == null) throw new Exception("there is no train with the name " + prevs[i] + " to set previous");
-                        if (!setPrevTrain(prevs[i], train)) throw new Exception("previous train cannot be set for " + prevs[i]);
-                        if (!setNextTrain(name, prev[i])) throw new Exception("next train cannot be set for " + name);
-                    }
+                    prev = getTrain(prevs[0]);
+                    if (prev == null) throw new Exception("there is no train with the name " + prevs[0] + " to set previous");
+                    if (!setPrevTrain(prevs[0], train)) throw new Exception("previous train cannot be set for " + prevs[0]);
+                    if (!setNextTrain(name, prev)) throw new Exception("next train cannot be set for " + name);
                 }
                 if (!seton.isEmpty()) {                     // Checks if user wants to change the Node the Train is on
                     Node on = getNode(seton);
                     if (on == null) throw new Exception("there is no node with the name " + seton + " to set as train's on node");
                     train.setOnNode(on);
+                    on.addTrain(train);
                 }
                 break;
             case "move":
@@ -431,8 +428,8 @@ public class Model {
                 break;
             case "ls":
                 if (type == null) throw new Exception("missing type parameter");
-                if (all == null || type.contains("Rail")) {
-                    rails.forEach((nodeName, node) -> {
+                if (all == null || type.contentEquals("Rail")) {
+                    rails.forEach((String nodeName, Rail node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
@@ -441,10 +438,11 @@ public class Model {
                     for (Train t : node.getTrains()) {
                         System.out.print(" " + getName(t));
                     }
+                    System.out.println();
                     });
                 }
-                if (all == null || type.contains("Switch")) {
-                    switches.forEach((nodeName, node) -> {
+                if (all == null || type.contentEquals("Switch")) {
+                    switches.forEach((String nodeName, Switch node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
@@ -454,10 +452,11 @@ public class Model {
                     for (Train t : node.getTrains()) {
                         System.out.print(" " + getName(t));
                     }
+                    System.out.println();
                     });
                 }
-                if (all == null || type.contains("Station")) {
-                    stations.forEach((nodeName, node) -> {
+                if (all == null || type.contentEquals("Station")) {
+                    stations.forEach((String nodeName, Station node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
@@ -467,10 +466,11 @@ public class Model {
                     for (Train t : node.getTrains()) {
                         System.out.print(" " + getName(t));
                     }
+                    System.out.println();
                     });
                 }
-                if (all == null || type.contains("Cross")) {
-                    crosses.forEach((nodeName, node) -> {
+                if (all == null || type.contentEquals("Cross")) {
+                    crosses.forEach((String nodeName, Cross node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
@@ -481,10 +481,11 @@ public class Model {
                     for (Train t : node.getTrains()) {
                         System.out.print(" " + getName(t));
                     }
+                    System.out.println();
                     });
                 }
-                if (all == null || type.contains("TunnelEntrance")) {
-                    tunnelEntrances.forEach((nodeName, node) -> {
+                if (all == null || type.contentEquals("TunnelEntrance")) {
+                    tunnelEntrances.forEach((String nodeName, TunnelEntrance node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
                     System.out.println("\tnextNode: " + getNodeName(node.getNext()));
@@ -493,10 +494,11 @@ public class Model {
                     for (Train t : node.getTrains()) {
                         System.out.print(" " + getName(t));
                     }
+                    System.out.println();
                     });
                 }
-                if (all == null || type.contains("Engine") || type.contains("Train")) {
-                    engines.forEach(((trainName, trainObject) -> {
+                if (all == null || type.contentEquals("Engine") || type.contentEquals("Train")) {
+                    engines.forEach(((String trainName, Engine trainObject) -> {
                         System.out.println(trainName);
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
                         System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
@@ -504,8 +506,8 @@ public class Model {
                         System.out.println("\tnextCar: " + getName(trainObject.getNextCar()));
                     }));
                 }
-                if (all == null || type.contains("Car") || type.contains("Train")) {
-                    cars.forEach(((trainName, trainObject) -> {
+                if (all == null || type.contentEquals("Car") || type.contentEquals("Train")) {
+                    cars.forEach(((String trainName, Car trainObject) -> {
                         System.out.println(trainName);
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
                         System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
@@ -515,8 +517,8 @@ public class Model {
                     }));
                     
                 }
-                if (all == null || type.contains("CoalCar") || type.contains("Train")) {
-                    coalCars.forEach(((trainName, trainObject) -> {
+                if (all == null || type.contentEquals("CoalCar") || type.contentEquals("Train")) {
+                    coalCars.forEach(((String trainName, CoalCar trainObject) -> {
                         System.out.println(trainName);
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
                         System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
