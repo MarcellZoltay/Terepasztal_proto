@@ -24,7 +24,7 @@ public class Rail extends Node {
      * @param p
      */
     public Rail(int x, int y, Node n, Node p) {
-        super(x,y,n,p);
+        super(x, y, n, p);
     }
 
 }

@@ -10,5 +10,6 @@ public enum Status {
     CRASHED,
     PAUSE,
     GAME_WON,
-    DELETE_TRAIN
+    DELETE_TRAIN,
+    EMPTY_CAR
 }

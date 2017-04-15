@@ -29,8 +29,8 @@ public class Cross extends Rail {
      */
     public Cross() {
         super(0,0,null,null);
-        next2Node=null;
-        prev2Node=null;
+        next2Node = null;
+        prev2Node = null;
     }
 
     /**

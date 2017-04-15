@@ -14,7 +14,7 @@ public class Engine extends Train {
      * Default constructor
      */
     public Engine() {
-        super(0,0,0,0,null,Color.ENGINE);
+        super(0,0,0,0,null, Color.ENGINE);
     }
 
     /**
@@ -22,10 +22,9 @@ public class Engine extends Train {
      * @param y 
      * @param xE 
      * @param yE 
-     * @param c
      */
-    public Engine(int x, int y, int xE, int yE, Node onNode, Color c) {
-        super(x, y, xE, yE, onNode, c);
+    public Engine(int x, int y, int xE, int yE, Node onNode) {
+        super(x, y, xE, yE, onNode, Color.ENGINE);
     }
 
 
@@ -35,13 +34,15 @@ public class Engine extends Train {
     @Override
     public Status move(){
 
-        // CRASH
         List<Train> on = onNode.getNext().getTrains();
         if(!on.isEmpty()) return Status.CRASHED;
 
         Node next = onNode.getNextNode(this);
         prevNode = onNode;
         onNode = next;
+
+        prevNode.removeTrain(this);
+        onNode.addTrain(this);
 
         return nextCar.move();
     }
