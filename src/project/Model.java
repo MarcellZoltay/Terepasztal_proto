@@ -266,19 +266,19 @@ public class Model {
         Set<String> set;
         set = rails.keySet();
         for (String s : set)
-            if (rails.get(s) == (Rail)node) return s;
+            if ((Node)rails.get(s) == node) return s;
         set = stations.keySet();
         for (String s : set)
-            if (stations.get(s) == (Station)node) return s;
+            if ((Node)stations.get(s) == node) return s;
         set = rails.keySet();
         for (String s : set)
-            if (switches.get(s) == (Switch)node) return s;
+            if ((Node)switches.get(s) == node) return s;
         set = switches.keySet();
         for (String s : set)
-            if (rails.get(s) == (Cross)node) return s;
+            if ((Node)rails.get(s) == node) return s;
         set = tunnelEntrances.keySet();
         for (String s : set)
-            if (tunnelEntrances.get(s) == (TunnelEntrance)node) return s;
+            if ((Node)tunnelEntrances.get(s) == node) return s;
         return "Error";
     }
     
