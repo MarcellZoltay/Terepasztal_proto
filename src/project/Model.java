@@ -105,7 +105,10 @@ public class Model {
                     else if (s != Status.CRASHED) moved[i] = true;
                 }
         } while(!Arrays.equals(moved, movedLast));
-        return null;
+        for (boolean n : moved){
+            if (n == false) return Status.CRASHED;
+        }
+        return Status.CONTINUE;
     }
 
     /**
