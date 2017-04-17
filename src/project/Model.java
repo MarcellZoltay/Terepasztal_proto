@@ -430,12 +430,16 @@ public class Model {
                 break;
             case "move":
                 if (steps == null) throw new Exception("missing steps parameter");      // Checks if command has steps option, but without parameter
-                if (steps.isEmpty()) moveEngines();                                                           // If there are no options, then it calls the train mover function once
+                if (steps.isEmpty()) {
+                    Status s = moveEngines();
+                    if (s == Status.CRASHED) return s;
+                    else if (s == Status.GAME_WON) return s;
+                }                                                           // If there are no options, then it calls the train mover function once
                 else                                                                                        // Calls it the number of times the parameter had
                     for (int i = 0; i < Integer.parseInt(steps); i++) {
                         Status s = moveEngines();
                         if (s == Status.CRASHED) return s;                                                  // Checks if the trains had crashed on the map
-                        if (s == Status.GAME_WON) return s;
+                        else if (s == Status.GAME_WON) return s;
                     }      
                 break;
             case "ls":
