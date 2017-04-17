@@ -174,7 +174,6 @@ public class Model {
     private boolean setNext(String name, Node toSet) {
         Node n = getNode(name);
         if (n.getNext() == null) n.setNext(toSet);
-        else if (n.getNext() != toSet) return false;
         else if (crosses.get(name) != null) {
             if (((Cross)n).getNext2() == null) ((Cross)n).setNext2(toSet);
             else if (((Cross)n).getNext2() != toSet) return false;
@@ -183,6 +182,7 @@ public class Model {
             if (((Switch)n).getSecond()== null) ((Switch)n).setSecond(toSet);
             else if (((Switch)n).getSecond() != toSet) return false;
         }
+        else if (n.getNext() != toSet) return false;
         return true;
     }
    
