@@ -34,7 +34,7 @@ public class Engine extends Train {
     @Override
     public Status move(){
 
-        List<Train> on = onNode.getNext().getTrains();
+        List<Train> on = onNode.getNextNode(this).getTrains();
         if(!on.isEmpty()) return Status.CRASHED;
 
         Node next = onNode.getNextNode(this);
