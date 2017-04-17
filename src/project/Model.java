@@ -173,14 +173,20 @@ public class Model {
      */
     private boolean setNext(String name, Node toSet) {
         Node n = getNode(name);
-        if (n.getNext() == null) n.setNext(toSet);
+        boolean override = false;
+        if (tunnelEntrances.get(getNodeName(toSet)) != null) override = true;
+        if (n.getNext() == null || override) n.setNext(toSet);
         else if (crosses.get(name) != null) {
-            if (((Cross)n).getNext2() == null) ((Cross)n).setNext2(toSet);
-            else if (((Cross)n).getNext2() != toSet) return false;
+            if (((Cross)n).getNext2() == null || override) ((Cross)n).setNext2(toSet);
+            else if (n.getNext() != toSet && ((Cross)n).getNext2() != toSet) return false;
         }
         else if (switches.get(name) != null) {
-            if (((Switch)n).getSecond()== null) ((Switch)n).setSecond(toSet);
-            else if (((Switch)n).getSecond() != toSet) return false;
+            if (((Switch)n).getSecond()== null || override) ((Switch)n).setSecond(toSet);
+            else if (n.getNext() != toSet && ((Switch)n).getSecond() != toSet) return false;
+        }
+        else if (tunnelEntrances.get(name) != null) {
+            if (((TunnelEntrance)n).getSecond()== null || override) ((TunnelEntrance)n).setSecond(toSet);
+            else if (n.getNext() != toSet && ((TunnelEntrance)n).getSecond() != toSet) return false;
         }
         else if (n.getNext() != toSet) return false;
         return true;
@@ -191,15 +197,14 @@ public class Model {
      */
     private boolean setPrev(String name, Node toSet) {
         Node n = getNode(name);
-        if (crosses.get(name) != null) {
-            if (n.getPrev() == null) n.setPrev(toSet);
-            else if (((Cross)n).getPrev2() == null) ((Cross)n).setPrev2(toSet);
+        boolean override = false;
+        if (tunnelEntrances.get(getNodeName(toSet)) != null) override = true;
+        if (n.getPrev() == null || override) n.setPrev(toSet);
+        else if (crosses.get(name) != null) {
+            if (((Cross)n).getPrev2() == null || override) ((Cross)n).setPrev2(toSet);
             else if (n.getPrev() != toSet && ((Cross)n).getPrev2() != toSet) return false;
         }
-        else {
-            if (n.getPrev() == null) n.setPrev(toSet);
-            else if (n.getPrev() != toSet) return false;
-        }
+        else if (n.getPrev() != toSet) return false;
         return true;
     }
     
