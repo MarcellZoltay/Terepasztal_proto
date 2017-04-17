@@ -88,23 +88,6 @@ public abstract class Train extends MapItem {
      * @return Status, A mozgatás során játék kimenetére ható események visszajelzése.
      */
     public Status move() {
-        prevNode=onNode;
-        onNode=onNode.getNextNode(this);
-        onNode.addTrain(this);
-        //x=onNode.getX();
-        //y=onNode.getY();
-        //yEnd=onNode.getY();
-        //xEnd=onNode.getX();
-        prevNode.removeTrain(this);
-        Status ret = null;
-        if(nextCar != null)
-            ret = nextCar.move();
-        if(ret.equals(Status.NOT_EMPTY_CAR))
-            return ret;
-        else {
-            if (!color.isEmpty()) return Status.NOT_EMPTY_CAR;
-            if (color.isEmpty()) return Status.DELETE_TRAIN;
-        }
         return null;
     }
 

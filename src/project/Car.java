@@ -70,8 +70,28 @@ public class Car extends Train {
         if (color.isEmpty())
             color=color.opposit();
     }
+
+    @Override
     public Status move(){
-        super.move();
+        prevNode=onNode;
+        onNode=onNode.getNextNode(this);
+        onNode.addTrain(this);
+        //x=onNode.getX();
+        //y=onNode.getY();
+        //yEnd=onNode.getY();
+        //xEnd=onNode.getX();
+        prevNode.removeTrain(this);
+
+        Status ret = null;
+        if(nextCar != null)
+            ret = nextCar.move();
+
+        if(ret.equals(Status.NOT_EMPTY_CAR))
+            return ret;
+        else {
+            if (!color.isEmpty()) return Status.NOT_EMPTY_CAR;
+            if (color.isEmpty()) return Status.DELETE_TRAIN;
+        }
         return null;
     }
 
