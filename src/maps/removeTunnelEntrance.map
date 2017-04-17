@@ -1,6 +1,6 @@
 node -c r1 -t Rail -C 0 0
 node -c r2 -t Rail -C 0 2 -sP r1
 node -c r3 -t Rail -C 2 0
-node -c r4 -t Rail -C 2 2 -sP r3
+node -c r4 -t Rail -C 2 2 -sP r3 -sN r1
 node -c te1 -t TunnelEntrance -C 0 1 -sN r2 -sP r1
 node -c te2 -t TunnelEntrance -C 2 1 -sN r4 te1 -sP r3

@@ -1,4 +1,4 @@
 node -c r1 -t Rail -C 0 0
 node -c r2 -t Rail -C 0 2 -sP r1
 node -c r3 -t Rail -C 2 0
-node -c r4 -t Rail -C 2 2 -sP r3
+node -c r4 -t Rail -C 2 2 -sP r3 -sN r1

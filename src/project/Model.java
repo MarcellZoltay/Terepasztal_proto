@@ -1,5 +1,6 @@
 package project;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -91,14 +92,19 @@ public class Model {
         if(isMapEmpty())
             return Status.GAME_WON;
 
-        for (Map.Entry<String, Engine> engine : engines.entrySet()) {
-            Status st = engine.getValue().move();
-            if(st == Status.CRASHED)
-                return Status.CRASHED;
-            else if(st == Status.DELETE_TRAIN)
-                removeTrain(engine.getValue());
-        }
-
+        Boolean moved[] = new Boolean[engines.size()];
+        Boolean movedLast[];
+        do {
+            movedLast = moved.clone();
+            moved = new Boolean[engines.size()];
+            String keys[] = (String[])engines.keySet().toArray();
+            for (int i = 0; i < keys.length; i++ )
+                if(!moved[i]) {
+                    Status s = engines.get(keys[i]).move();
+                    if (s == Status.DELETE_TRAIN) removeTrain(engines.get(keys[i]));
+                    else if (s != Status.CRASHED) moved[i] = true;
+                }
+        } while(!Arrays.equals(moved, movedLast));
         return null;
     }
 
@@ -375,6 +381,8 @@ public class Model {
                             break;
                         case "Car":
                             train = new Car();
+                            if (!setcolor.isEmpty()) ((Car)train).setColor(Color.getColorEnum(setcolor));            // Stations must have colors
+                            else throw new Exception("cars must have color");
                             cars.put(name, (Car)train);
                             break;
                         case "CoalCar":
@@ -424,6 +432,7 @@ public class Model {
                     for (int i = 0; i < Integer.parseInt(steps); i++) {
                         Status s = moveEngines();
                         if (s == Status.CRASHED) return s;                                                  // Checks if the trains had crashed on the map
+                        if (s == Status.GAME_WON) return s;
                     }      
                 break;
             case "ls":
