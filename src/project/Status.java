@@ -1,7 +1,7 @@
 package project;
 
 /**
- * 
+ * Status enum, az állapotokat reprezentálása.
  */
 public enum Status {
     START_GAME,

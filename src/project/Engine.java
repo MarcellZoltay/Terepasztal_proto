@@ -18,10 +18,10 @@ public class Engine extends Train {
     }
 
     /**
-     * @param x 
-     * @param y 
-     * @param xE 
-     * @param yE 
+     * @param x Az Engine x koordinátája.
+     * @param y Az Engine y koordinátája
+     * @param xE Az Engine végének x koordinátája.
+     * @param yE Az Engine végének y koordinátája.
      */
     public Engine(int x, int y, int xE, int yE, Node onNode) {
         super(x, y, xE, yE, onNode, Color.ENGINE);
@@ -31,6 +31,11 @@ public class Engine extends Train {
     //******************************//
     //          Metodusok           //
     //******************************//
+
+    /**
+     * A mozdony mozgatása.
+     * @return Status, A mozgatás során játék kimenetére ható események visszajelzése.
+     */
     @Override
     public Status move(){
 

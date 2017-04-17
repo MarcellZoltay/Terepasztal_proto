@@ -11,12 +11,12 @@ public class Cross extends Rail {
     //         Tagvaltozok          //
     //******************************//
     /**
-     *
+     * A kereszteződés másik kimenete
      */
     private Node next2Node;
 
     /**
-     *
+     * A kereszteződés másik bemenete
      */
     private Node prev2Node;
 
@@ -52,6 +52,12 @@ public class Cross extends Rail {
     //******************************//
     //          Metodusok           //
     //******************************//
+
+    /**
+     * Meghatarozza a kovetkezo csomopontot, amerre a vonatnak mennie kell
+     * @param t vonatot kap parameterkent aminek lekerdezi az elozo Node-jat és ez alapjan eldonti merre kell tovabb mennie
+     * @return A haladási iránynak megfelelő következő csomópont.
+     */
     @Override
     public Node getNextNode(Train t){
         Node ret = null;
@@ -72,18 +78,35 @@ public class Cross extends Rail {
     //******************************//
     //       Getterek/Setterek      //
     //******************************//
+
+    /**
+     * Visszaadja a másik kimenetet.
+     * @return A másik kimenettel.
+     */
     public Node getNext2() {
         return next2Node;
     }
 
+    /**
+     * Beállítja a paraméterül kapott változót a másik kimenetnek.
+     * @param next2Node A beállítandó másik kimenet.
+     */
     public void setNext2(Node next2Node) {
         this.next2Node = next2Node;
     }
 
+    /**
+     * Visszaadja a másik bemenetet.
+     * @return A másik bemenettel.
+     */
     public Node getPrev2() {
         return prev2Node;
     }
 
+    /**
+     * Beállítja a paraméterül kapott változót a másik bemenetnek.
+     * @param prev2Node A beállítandó másik bemenet.
+     */
     public void setPrev2(Node prev2Node) {
         this.prev2Node = prev2Node;
     }

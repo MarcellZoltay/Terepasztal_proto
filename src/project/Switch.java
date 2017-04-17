@@ -11,7 +11,7 @@ public class Switch extends Node {
     //         Tagvaltozok          //
     //******************************//
     /**
-     * 
+     * A másik kimenet.
      */
     protected Node next2Node;
 
@@ -52,6 +52,11 @@ public class Switch extends Node {
         next2Node = temp;
     }
 
+    /**
+     * Meghatarozza a kovetkezo csomopontot, amerre a vonatnak mennie kell
+     * @param t vonatot kap parameterkent aminek lekerdezi az elozo Node-jat és ez alapjan eldonti merre kell tovabb mennie
+     * @return A haladási iránynak megfelelő következő csomópont.
+     */
     @Override
     public Node getNextNode(Train t){
         Node ret = null;

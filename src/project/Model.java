@@ -21,42 +21,42 @@ public class Model {
     private View view;
 
     /**
-     * 
+     * A mozdonyokat tároló Map
      */
     private Map<String, Engine> engines;
 
     /**
-     * 
+     * A kocsikat tároló Map
      */
     private Map<String, Car> cars;
 
     /**
-     * 
+     * A szeneskocsikat tároló Map
      */
     private Map<String, CoalCar> coalCars;
 
     /**
-     * 
+     * Az állomásokat tároló Map
      */
     private Map<String, Station> stations;
 
     /**
-     * 
+     * A síneket tároló Map
      */
     private Map<String, Rail> rails;
 
     /**
-     * 
+     * A kereszteződéseket tároló Map
      */
     private Map<String, Cross> crosses;
 
     /**
-     * 
+     * A váltókat tároló Map
      */
     private Map<String, Switch> switches;
 
     /**
-     * 
+     * Az alagút bejáratokat tároló Map
      */
     private Map<String, TunnelEntrance> tunnelEntrances;
 
@@ -577,7 +577,8 @@ public class Model {
     }
 
     /**
-     * @param tE
+     * Törli a paraméterül kapott alagút bejáratot a tárolójából.
+     * @param tE A törlendő alagút bejárat
      */
     private void removeTunnelEntrance(TunnelEntrance tE) throws Exception {
         System.out.println(getNodeName(tE.getSecond()));
@@ -602,7 +603,8 @@ public class Model {
     }
 
     /**
-     * @param trainPart
+     * Törli a vonatot a modellből
+     * @param trainPart A törlendő vonatrész.
      */
     private void removeTrain(Train trainPart) {
 
