@@ -1,6 +1,8 @@
 package project;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -94,17 +96,23 @@ public class Model {
 
         Boolean moved[] = new Boolean[engines.size()];
         Boolean movedLast[];
+        List<Train> toRemove = new ArrayList<>();
         do {
             movedLast = Arrays.copyOf(moved, moved.length);
             moved = new Boolean[engines.size()];
             String keys[] = (String[])engines.keySet().toArray();
             for (int i = 0; i < keys.length; i++ )
-                if(!moved[i]) {
+                if(!movedLast[i]) {
                     Status s = engines.get(keys[i]).move();
-                    if (s == Status.DELETE_TRAIN) removeTrain(engines.get(keys[i]));
-                    else if (s != Status.CRASHED) moved[i] = true;
+                    if (s == Status.DELETE_TRAIN) toRemove.add(engines.get(keys[i]));
+                    if (s != Status.CRASHED) moved[i] = true;
                 }
         } while(!Arrays.equals(moved, movedLast));
+        
+        toRemove.forEach((r) -> {
+            removeTrain(r);
+        });
+        
         for (boolean n : moved){
             if (n == false) return Status.CRASHED;
         }
