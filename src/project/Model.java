@@ -95,9 +95,10 @@ public class Model {
             return Status.GAME_WON;
 
         Boolean moved[] = new Boolean[engines.size()];
+        Arrays.fill(moved, false);
         Boolean movedLast[];
         List<Train> toRemove = new ArrayList<>();
-        String keys[] = (String[])engines.keySet().toArray();
+        String keys[] = engines.keySet().toArray(new String[0]);
         do {
             movedLast = Arrays.copyOf(moved, moved.length);
             for (int i = 0; i < keys.length; i++ )
@@ -317,9 +318,9 @@ public class Model {
         
         switch(parameters[0]) {                                     // Decides which command was called
             case "node":
-                if (name == null || name.isEmpty()) throw new Exception("missing node name");   // Command cannot function without a node name
+                if (name == null || remove == null) throw new Exception("missing node name");   // Command cannot function without a node name
                 if (!name.isEmpty() && !remove.isEmpty()) throw new Exception("can't create and remove an object at the same time"); // Cannot create and remove objects at the same time
-                if (!name.isEmpty()) {                  // If the command says to create or modify
+                if (!name.isEmpty()) {                // If the command says to create or modify
                     Node node = getNode(name);          // Checks if the node was created earlier
                     if (node == null) {
                         if (type == null || type.isEmpty()) throw new Exception("missing node type");     // Command cannot function without a node type// If not creates it accordingly, and puts it an appropriate map
@@ -579,6 +580,16 @@ public class Model {
      * @param tE
      */
     private void removeTunnelEntrance(TunnelEntrance tE) throws Exception {
+        System.out.println(getNodeName(tE.getSecond()));
+        try {
+            ((TunnelEntrance)tE.getNext()).getSecond();
+            tE.getPrev().setNext(tE.getSecond());
+            tE.getSecond().setPrev(tE.getPrev());
+        }
+        catch (Exception e) {
+            tE.getNext().setPrev(tE.getSecond());
+            tE.getSecond().setNext(tE.getNext());
+        }
         tunnelEntrances.remove(getNodeName(tE));
     }
 
