@@ -1,0 +1,9 @@
+node -c r1 -t Rail -C 0 1
+node -c r3 -t Rail -C 0 6
+node -c r2 -t Rail -C 0 3 -sN r3 -sP r1
+train -c c11 -t Car -sO r1
+train -c e1 -t Engine -sN c11 -sO r1
+train -c c12 -t Car -sP c11 -sO r1
+train -c c21 -t Car -sO r3
+train -c e2 -t Engine -sN c21 -sO r3
+train -c c22 -t Car -sP c21 -sO r3
