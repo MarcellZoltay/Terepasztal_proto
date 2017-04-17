@@ -124,25 +124,6 @@ public class Model {
     public void addTrainToMap() {
         // TODO implement here
     }
-
-    /**
-     * Finds a specific option and its parameter in the command 
-     * @param params the command seperated by '-'
-     * @param keyShort the option's short name
-     * @param keyLong the option's long name
-     * @return returns the parameter(s)
-     */
-    private String checkParam(String params[], String keyShort, String keyLong) {
-        for (String param : params) {
-            if (param.length() == keyShort.length() && param.startsWith(keyShort)) return null;
-            if (param.length() == keyLong.length() && param.startsWith(keyLong))  return null;
-            if (param.startsWith(keyShort + " "))
-                return param.substring(keyShort.length() + 1);
-            if (param.startsWith(keyLong + " "))
-                return param.substring(keyLong.length() + 1);
-        }
-        return "";
-    }
     
     /**
      * Checks if there exists a node with a specific name
@@ -289,6 +270,25 @@ public class Model {
     }
     
     /**
+     * Finds a specific option and its parameter in the command 
+     * @param params the command seperated by '-'
+     * @param keyShort the option's short name
+     * @param keyLong the option's long name
+     * @return returns the parameter(s)
+     */
+    private String checkParam(String params[], String keyShort, String keyLong) {
+        for (String param : params) {
+            if (param.contentEquals(keyShort)) return null;
+            if (param.contentEquals(keyLong))  return null;
+            if (param.startsWith(keyShort + " "))
+                return param.substring(keyShort.length() + 1);
+            if (param.startsWith(keyLong + " "))
+                return param.substring(keyLong.length() + 1);
+        }
+        return "";
+    }
+    
+    /**
      * Gets one command at a time, acts accordingly
      * @param code the command itself
      * @return returns the outcome it caused. 
@@ -318,11 +318,11 @@ public class Model {
         switch(parameters[0]) {                                     // Decides which command was called
             case "node":
                 if (name == null || name.isEmpty()) throw new Exception("missing node name");   // Command cannot function without a node name
-                if (type == null || type.isEmpty()) throw new Exception("missing node type");     // Command cannot function without a node type
                 if (!name.isEmpty() && !remove.isEmpty()) throw new Exception("can't create and remove an object at the same time"); // Cannot create and remove objects at the same time
-                if (!name.isEmpty()) {                  // If the command sais to create or modify
+                if (!name.isEmpty()) {                  // If the command says to create or modify
                     Node node = getNode(name);          // Checks if the node was created earlier
-                    if (node == null) {                 // If not creates it accordingly, and puts it an appropriate map
+                    if (node == null) {
+                        if (type == null || type.isEmpty()) throw new Exception("missing node type");     // Command cannot function without a node type// If not creates it accordingly, and puts it an appropriate map
                         switch(type) {
                             case "Rail": 
                                 node = new Rail();
@@ -336,7 +336,6 @@ public class Model {
                                 break;
                             case "Switch": 
                                 node = new Switch();
-                                if (change == null) changeSwitch((Switch)node);          // Only Switches' output can be changed
                                 switches.put(name, (Switch)node);
                                 break;
                             case "Cross": 
@@ -349,6 +348,9 @@ public class Model {
                                 break;
                             default: throw new Exception("not valid node type"); // Command must have a valid type
                         }
+                    }
+                    if (switches.get(name) != null && change == null) {
+                        changeSwitch((Switch)node);
                     }
                     if (!coords.isEmpty()) {                    // Checks if user wants to change node's coordinates
                         String coord[] = coords.split(" ");
