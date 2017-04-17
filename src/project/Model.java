@@ -100,7 +100,6 @@ public class Model {
         String keys[] = (String[])engines.keySet().toArray();
         do {
             movedLast = Arrays.copyOf(moved, moved.length);
-            Arrays.fill(moved, false);
             for (int i = 0; i < keys.length; i++ )
                 if(!movedLast[i]) {
                     Status s = engines.get(keys[i]).move();
