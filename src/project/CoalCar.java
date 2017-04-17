@@ -3,7 +3,7 @@ import java.util.*;
 
 //Zahorán László 2017.04.06
 /**
- * A CoalCar osztály, Szenes vagon megvalósítása.
+ * A CoalCar osztály, Szenesvagon megvalósítása.
  */
 public class CoalCar extends Train {
 
@@ -19,6 +19,10 @@ public class CoalCar extends Train {
     //******************************//
     //         Konstruktorok        //
     //******************************//
+
+    /**
+     * Default constructor
+     */
     public CoalCar(){
         super();
         prevTrain=null;
@@ -49,9 +53,15 @@ public class CoalCar extends Train {
         super(x, y, xEnd, yEnd, onNode, Color.COAL_CAR);
     }
 
+
     //******************************//
     //          Metodusok           //
     //******************************//
+
+    /**
+     * A szeneskocsi mozgatása
+     * @return Status, A mozgatás során játék kimenetére ható események visszajelzése.
+     */
     @Override
     public Status move(){
         Node next = onNode.getNextNode(this);

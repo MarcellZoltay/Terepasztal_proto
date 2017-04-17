@@ -11,14 +11,22 @@ public class Station extends Node {
     //         Tagvaltozok          //
     //******************************//
     /**
-     * 
+     * Az állomás színe
      */
     private Color color;
     /**
-     *
+     * Logikai érték, hogy leszállíthat-e a vonatról utasokat
      */
     private boolean canGetOff;
+
+    /**
+     * Az első nem üres kocsi, amiről le kell szállítani az utasokat
+     */
     private Car firstEmptyCar;
+
+    /**
+     * Az azonos színű üres kocsi, amibe utasok szállnak fel
+     */
     private Car getOnCar;
 
 
@@ -37,11 +45,11 @@ public class Station extends Node {
     }
 
     /**
-     * @param x 
-     * @param y 
-     * @param n 
-     * @param p 
-     * @param c
+     * @param x Az állomás x koordinátája
+     * @param y Az állomás y koordinátája
+     * @param n A következő csomópont
+     * @param p Az előző csomópont
+     * @param c Az állomás színe
      */
     public Station(int x, int y, Node n, Node p, Color c) {
         super(x, y, n, p);
@@ -55,7 +63,10 @@ public class Station extends Node {
     //          Metodusok           //
     //******************************//
     /**
-     * @param t Traint kap és hozzaadja a listahoz
+     * Hozzáadja a paraméterül kapott változót a vonatrészeket tároló tömbhöz.
+     * Az első azonos színű nem üres kocsiról leszállítja az utasokat.
+     * Véletlenszerűen felszállít utasokat egy azonos színű üres kocsiba.
+     * @param t A listához adandó vonatrész.
      */
     @Override
     public void addTrain(Train t) {
@@ -121,15 +132,16 @@ public class Station extends Node {
     //       Getterek/Setterek      //
     //******************************//
     /**
-     * @return
+     * Visszaadja az állomás színét
+     * @return Az állomás színével
      */
     public Color getColor() {
         return color;
     }
 
     /**
-     *
-     * @param c
+     * Beállítja az állomás színét a paraméterül kapott értékkel
+     * @param c A beállítandó szín
      */
     public void setColor(Color c){
         this.color = c;

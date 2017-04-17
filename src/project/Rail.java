@@ -18,10 +18,10 @@ public class Rail extends Node {
     }
 
     /**
-     * @param x 
-     * @param y 
-     * @param n 
-     * @param p
+     * @param x A sín x koordinátája
+     * @param y A sín y koordinátája
+     * @param n A következő csomópont
+     * @param p Az előző csomópont
      */
     public Rail(int x, int y, Node n, Node p) {
         super(x, y, n, p);

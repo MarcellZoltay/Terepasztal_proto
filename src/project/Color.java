@@ -1,7 +1,7 @@
 package project;
 
 /**
- * 
+ * Color enum, a színek reprezentálása.
  */
 public enum Color {
     ENGINE,
@@ -17,6 +17,10 @@ public enum Color {
     YELLOW_GRAY,
     PINK_GRAY;
 
+    /**
+     *
+     * @return
+     */
     public Color opposit() {
         switch(this) {
             case BLUE: return Color.BLUE_GRAY;
@@ -33,6 +37,10 @@ public enum Color {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isEmpty(){
         switch(this) {
             case BLUE: return false;
@@ -49,6 +57,11 @@ public enum Color {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public static Color getColorEnum(String s){
         Color ret = null;
 

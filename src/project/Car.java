@@ -19,6 +19,10 @@ public class Car extends Train {
     //******************************//
     //         Konstruktorok        //
     //******************************//
+
+    /**
+     * Default constructor
+     */
     public Car(){
         super();
         prevTrain=null;
@@ -28,10 +32,10 @@ public class Car extends Train {
      * Car osztály konstruktora.
      *@param x Train x koordináta.
      *@param y Train y koordináta.
-     *@param xEnd  A Train vége, x koordináta.
+     *@param xEnd A Train vége, x koordináta.
      *@param yEnd A Train vége, y koordináta.
      *@param onNode Az aktuális csomópont amin tartózkodik a Train.
-     *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
+     *@param color A Train elem színe
      *@param nextCar A Train elemet követő Train elem a szerelvényben, utolsó elem esetén null.
      */
     public Car(int x, int y,int xEnd,int yEnd, Node onNode, Color color, Train nextCar) {
@@ -41,10 +45,10 @@ public class Car extends Train {
      * Car osztály konstruktora.
      *@param x Train x koordináta.
      *@param y Train y koordináta.
-     *@param xEnd  A Train vége, x koordináta.
+     *@param xEnd A Train vége, x koordináta.
      *@param yEnd A Train vége, y koordináta.
      *@param onNode Az aktuális csomópont amin tartózkodik a Train.
-     *@param color A Train elem színe, Mozdony/ures -Gray, Szenes vagon -###
+     *@param color A Train elem színe
      */
     public Car(int x, int y,int xEnd,int yEnd, Node onNode, Color color) {
         super(x, y, xEnd, yEnd, onNode, color);
@@ -55,7 +59,7 @@ public class Car extends Train {
     //          Metodusok           //
     //******************************//
     /**
-     *A vagonban utazó utasok leszállítása, azonos színű állomáson
+     * A vagonban utazó utasok leszállítása, azonos színű állomáson
      * üres vagon színe-->Gray
      */
     public void getOffPassengers() {
@@ -71,6 +75,10 @@ public class Car extends Train {
             color=color.opposit();
     }
 
+    /**
+     * A kocsi mozgatása
+     * @return Status, A mozgatás során játék kimenetére ható események visszajelzése.
+     */
     @Override
     public Status move(){
         prevNode=onNode;
