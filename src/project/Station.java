@@ -100,14 +100,18 @@ public class Station extends Node {
             }
 
             // Leszállás
-            if (canGetOff && t.equals(firstEmptyCar))
+            if (canGetOff && t.equals(firstEmptyCar)) {
                 ((Car) t).getOffPassengers();
+                firstEmptyCar = null;
+            }
 
 
             // Felszállás
             Random r = new Random();
-            if (r.nextInt(10) < 2 && t.equals(getOnCar))
+            if (r.nextInt(10) < 2 && t.equals(getOnCar)) {
                 ((Car) t).getOnPassengers();
+                getOnCar = null;
+            }
 
         }
     }
