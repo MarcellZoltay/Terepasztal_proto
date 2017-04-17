@@ -271,12 +271,12 @@ public class Model {
         set = stations.keySet();
         for (String s : set)
             if ((Node)stations.get(s) == node) return s;
-        set = rails.keySet();
-        for (String s : set)
-            if ((Node)switches.get(s) == node) return s;
         set = switches.keySet();
         for (String s : set)
-            if ((Node)rails.get(s) == node) return s;
+            if ((Node)switches.get(s) == node) return s;
+        set = crosses.keySet();
+        for (String s : set)
+            if ((Node)crosses.get(s) == node) return s;
         set = tunnelEntrances.keySet();
         for (String s : set)
             if ((Node)tunnelEntrances.get(s) == node) return s;
