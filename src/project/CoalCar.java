@@ -52,9 +52,19 @@ public class CoalCar extends Train {
     //******************************//
     //          Metodusok           //
     //******************************//
+    @Override
     public Status move(){
-        super.move();
-        return null;
+        Node next = onNode.getNextNode(this);
+        prevNode = onNode;
+        onNode = next;
+
+        prevNode.removeTrain(this);
+        onNode.addTrain(this);
+
+        if(nextCar != null)
+            return nextCar.move();
+
+        return Status.DELETE_TRAIN;
     }
 
 
