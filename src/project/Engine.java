@@ -38,9 +38,6 @@ public class Engine extends Train {
             return Status.NOT_EMPTY_CAR;
         }
         List<Train> on = onNode.getNextNode(this).getTrains();
-        for(int i = 0 ; i<on.size();i++){
-            System.out.println(on.toString());
-        }
         if(!on.isEmpty()) return Status.CRASHED;
 
         Node next = onNode.getNextNode(this);
