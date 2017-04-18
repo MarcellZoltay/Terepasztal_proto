@@ -157,19 +157,24 @@ public class Model {
         Node n = getNode(name);
         boolean override = false;
         if (tunnelEntrances.get(getNodeName(toSet)) != null) override = true;
-        if (n.getNext() == null || override) n.setNext(toSet);
-        else if (crosses.get(name) != null) {
-            if (((Cross)n).getNext2() == null || override) ((Cross)n).setNext2(toSet);
+        if (crosses.get(name) != null) {
+            if (n.getNext() == null) n.setNext(toSet);
+            else if (((Cross)n).getNext2() == null) ((Cross)n).setNext2(toSet);
+            else if (override) n.setNext(toSet);
             else if (n.getNext() != toSet && ((Cross)n).getNext2() != toSet) return false;
         }
         else if (switches.get(name) != null) {
-            if (((Switch)n).getSecond()== null || override) ((Switch)n).setSecond(toSet);
+            if (n.getNext() == null) n.setNext(toSet);
+            else if (((Switch)n).getSecond() == null) ((Switch)n).setSecond(toSet);
+            else if (override) n.setNext(toSet);
             else if (n.getNext() != toSet && ((Switch)n).getSecond() != toSet) return false;
         }
         else if (tunnelEntrances.get(name) != null) {
-            if (((TunnelEntrance)n).getSecond()== null || override) ((TunnelEntrance)n).setSecond(toSet);
+            if (n.getNext() == null) n.setNext(toSet);
+            else if (((TunnelEntrance)n).getSecond() == null) ((TunnelEntrance)n).setSecond(toSet);
             else if (n.getNext() != toSet && ((TunnelEntrance)n).getSecond() != toSet) return false;
         }
+        else if (n.getNext() == null || override) n.setNext(toSet);
         else if (n.getNext() != toSet) return false;
         return true;
     }
@@ -181,11 +186,14 @@ public class Model {
         Node n = getNode(name);
         boolean override = false;
         if (tunnelEntrances.get(getNodeName(toSet)) != null) override = true;
-        if (n.getPrev() == null || override) n.setPrev(toSet);
+        if (tunnelEntrances.get(name) != null && override) ((TunnelEntrance)n).setSecond(toSet);
         else if (crosses.get(name) != null) {
-            if (((Cross)n).getPrev2() == null || override) ((Cross)n).setPrev2(toSet);
+            if (n.getPrev() == null) n.setPrev(toSet);
+            else if (((Cross)n).getPrev2() == null) ((Cross)n).setPrev2(toSet);
+            else if (override) n.setPrev(toSet);
             else if (n.getPrev() != toSet && ((Cross)n).getPrev2() != toSet) return false;
         }
+        else if (n.getPrev() == null || override) n.setPrev(toSet);
         else if (n.getPrev() != toSet) return false;
         return true;
     }
@@ -267,7 +275,7 @@ public class Model {
         set = tunnelEntrances.keySet();
         for (String s : set)
             if ((Node)tunnelEntrances.get(s) == node) return s;
-        return "Error";
+        return null;
     }
     
     /**
@@ -380,6 +388,11 @@ public class Model {
                             if (!setNext(prevs[i], node)) throw new Exception("next node cannot be set for " + prevs[i]);
                             if (!setPrev(name, prev[i])) throw new Exception("previous node cannot be set for " + name);
                         }
+                    }
+                    if (tunnelEntrances.size() == 2) {
+                        tunnelEntrances.forEach((String key, TunnelEntrance te) -> {
+                            te.changeOutput();
+                        });
                     }
                 }
                 if (!remove.isEmpty()) {                        //Checks if user wants to remove a TunnelEntrance
@@ -581,16 +594,24 @@ public class Model {
      * @param tE A törlendő alagút bejárat
      */
     private void removeTunnelEntrance(TunnelEntrance tE) throws Exception {
-        System.out.println(getNodeName(tE.getSecond()));
-        try {
-            ((TunnelEntrance)tE.getNext()).getSecond();
-            tE.getPrev().setNext(tE.getSecond());
-            tE.getSecond().setPrev(tE.getPrev());
+        if (tunnelEntrances.size() == 2) {
+            try {
+                ((TunnelEntrance)tE.getNext()).getSecond();
+                tE.getPrev().setNext(tE.getSecond());
+                tE.getSecond().setPrev(tE.getPrev());
+                ((TunnelEntrance)tE.getNext()).changeOutput();
+            }
+            catch (Exception e) {
+                tE.getNext().setPrev(tE.getSecond());
+                tE.getSecond().setNext(tE.getNext());
+                ((TunnelEntrance)tE.getPrev()).changeOutput();
+            }
         }
-        catch (Exception e) {
-            tE.getNext().setPrev(tE.getSecond());
-            tE.getSecond().setNext(tE.getNext());
+        else {
+            tE.getPrev().setNext(tE.getNext());
+            tE.getNext().setPrev(tE.getPrev());
         }
+            
         tunnelEntrances.remove(getNodeName(tE));
     }
 
@@ -630,9 +651,7 @@ public class Model {
      * @return false - Ha nem üres a pálya.
      */
     private boolean isMapEmpty() {
-        if(engines.size()==0)
-            return true;
-        return false;
+        return engines.isEmpty();
     }
 
 }
