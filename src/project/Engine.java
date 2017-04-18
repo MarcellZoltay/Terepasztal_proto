@@ -18,10 +18,10 @@ public class Engine extends Train {
     }
 
     /**
-     * @param x Az Engine x koordinátája.
-     * @param y Az Engine y koordinátája
-     * @param xE Az Engine végének x koordinátája.
-     * @param yE Az Engine végének y koordinátája.
+     * @param x 
+     * @param y 
+     * @param xE 
+     * @param yE 
      */
     public Engine(int x, int y, int xE, int yE, Node onNode) {
         super(x, y, xE, yE, onNode, Color.ENGINE);
@@ -31,15 +31,16 @@ public class Engine extends Train {
     //******************************//
     //          Metodusok           //
     //******************************//
-
-    /**
-     * A mozdony mozgatása.
-     * @return Status, A mozgatás során játék kimenetére ható események visszajelzése.
-     */
     @Override
     public Status move(){
 
+        if(onNode.getNextNode(this)==null){
+            return Status.NOT_EMPTY_CAR;
+        }
         List<Train> on = onNode.getNextNode(this).getTrains();
+        for(int i = 0 ; i<on.size();i++){
+            System.out.println(on.toString());
+        }
         if(!on.isEmpty()) return Status.CRASHED;
 
         Node next = onNode.getNextNode(this);
@@ -49,6 +50,7 @@ public class Engine extends Train {
         prevNode.removeTrain(this);
         onNode.addTrain(this);
 
+        //System.out.println(nextCar.toString());
         return nextCar.move();
     }
 

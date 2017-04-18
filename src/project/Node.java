@@ -11,7 +11,7 @@ public abstract class Node extends MapItem {
     //         Tagvaltozok          //
     //******************************//
     /**
-     * A csomóponton lévő vonatrészek listája
+     * lecsereltem a tombot listara hogy konzisztens legyen a doksival
      */
     protected ArrayList<Train> trainsOn = new ArrayList<>();
 
@@ -43,33 +43,30 @@ public abstract class Node extends MapItem {
     //          Metodusok           //
     //******************************//
     /**
-     * Hozzáadja a paraméterül kapott változót a vonatrészeket tároló tömbhöz.
-     * @param t A listához adandó vonatrész.
+     * @param t Traint kap és hozzaadja a listahoz
      */
     public void addTrain(Train t) {
         trainsOn.add(t);
     }
 
     /**
-     * Törli a paraméterül kapott vonatrészt a listából.
-     * @param t A törlendő vonatrész.
+     * @param t Traint kap és ezt ha megtalálta a listában akkor eltávolítja
      */
     public void removeTrain(Train t) {
         trainsOn.remove(t);
     }
 
     /**
-     * Meghatarozza a kovetkezo csomopontot, amerre a vonatnak mennie kell
-     * @param t vonatot kap parameterkent aminek lekerdezi az elozo Node-jat és ez alapjan eldonti merre kell tovabb mennie
-     * @return A haladási iránynak megfelelő következő csomópont.
+     * @param t vonatot kap parameterkent aminek lekerdezi az elozo Nodejat és ez alapjan eldonti merre kell mennie tovabb
+     * @return visszater azzal a node-al amerre a vonat haladni fog
      */
     public Node getNextNode(Train t) {
         Node temp = t.prevNode;
 
-        if (temp.equals(nextNode)){
+        if (temp == nextNode){
             return prevNode;
         }
-        else if(temp.equals(prevNode)){
+        else if(temp == prevNode){
             return nextNode;
         }
 

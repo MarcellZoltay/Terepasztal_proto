@@ -40,15 +40,12 @@ public abstract class Train extends MapItem {
     //******************************//
     //         Konstruktorok        //
     //******************************//
-
-    /**
-     * Default constructor
-     */
     public Train(){
         super(0, 0);
         xEnd = 0;
         yEnd = 0;
         onNode = null;
+        //nextCar = null;
         prevNode = null;
         color = null;
     }
@@ -173,20 +170,17 @@ public abstract class Train extends MapItem {
     }
 
     /**
-     * Beállítja a vonatrész végének x koordinátáját.
-     * @param x A beállítandó koordináta.
+     *
      */
     public void setEndX(int x) { xEnd = x; }
 
     /**
-     * Beállítja a vonatrész végének y koordinátáját.
-     * @param y A beállítandó koordináta.
+     *
      */
     public void setEndY(int y) { yEnd = y; }
 
     /**
-     * Beállítja a vonatrész színét.
-     * @param c A beállítandó szín.
+     *
      */
     public void setColor(Color c) { color = c; }
 
