@@ -1,0 +1,59 @@
+e1
+        coordinates: 0, 0, 0, 0
+        onNode: r1
+        prevNode: null
+        nextCar: c1
+c1
+        coordinates: 0, 0, 0, 0
+        color: RED
+        onNode: r1
+        prevNode: null
+        nextTrain: c2
+        prevTrain: e1
+c2
+        coordinates: 0, 0, 0, 0
+        color: RED
+        onNode: r1
+        prevNode: null
+        nextTrain: null
+        prevTrain: c1
+
+e1
+        coordinates: 0, 0, 0, 0
+        onNode: cr1
+        prevNode: r1
+        nextCar: c1
+c1
+        coordinates: 0, 0, 0, 0
+        color: RED
+        onNode: cr1
+        prevNode: r1
+        nextTrain: c2
+        prevTrain: e1
+c2
+        coordinates: 0, 0, 0, 0
+        color: RED
+        onNode: cr1
+        prevNode: r1
+        nextTrain: null
+        prevTrain: c1
+
+e1
+        coordinates: 0, 0, 0, 0
+        onNode: r2
+        prevNode: cr1
+        nextCar: c1
+c1
+        coordinates: 0, 0, 0, 0
+        color: RED
+        onNode: r2
+        prevNode: cr1
+        nextTrain: c2
+        prevTrain: e1
+c2
+        coordinates: 0, 0, 0, 0
+        color: RED
+        onNode: r2
+        prevNode: cr1
+        nextTrain: null
+        prevTrain: c1

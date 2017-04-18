@@ -1,0 +1,15 @@
+te1
+        coordinates: 0, 0
+        nextNode: r2
+        prevNode: r1
+        trains:
+te1
+        coordinates: 0, 0
+        nextNode: te2
+        prevNode: r1
+        trains:
+te2
+        coordinates: 0, 0
+        nextNode: te1
+        prevNode: r3
+        trains:
