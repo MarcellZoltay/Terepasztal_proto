@@ -1,0 +1,4 @@
+node -c r1 -t Rail -C 10 10
+node -c r2 -t Rail -C 20 10 -sN r1
+node -c r3 -t Rail -C 20 15 -sN r1
+node -c s1 -t Switch -C 15 10 -sP r1 -sN r2 r3
