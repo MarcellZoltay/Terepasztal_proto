@@ -473,7 +473,7 @@ public class Model {
                 break;
             case "ls":
                 if (type == null) throw new Exception("missing type parameter");
-                if (all == null || type.contentEquals("Rail")) {
+                if (all == null || type.contains("Rail")) {
                     rails.forEach((String nodeName, Rail node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
@@ -486,7 +486,7 @@ public class Model {
                     System.out.println();
                     });
                 }
-                if (all == null || type.contentEquals("Switch")) {
+                if (all == null || type.contains("Switch")) {
                     switches.forEach((String nodeName, Switch node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
@@ -500,7 +500,7 @@ public class Model {
                     System.out.println();
                     });
                 }
-                if (all == null || type.contentEquals("Station")) {
+                if (all == null || type.contains("Station")) {
                     stations.forEach((String nodeName, Station node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
@@ -514,7 +514,7 @@ public class Model {
                     System.out.println();
                     });
                 }
-                if (all == null || type.contentEquals("Cross")) {
+                if (all == null || type.contains("Cross")) {
                     crosses.forEach((String nodeName, Cross node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
@@ -529,7 +529,7 @@ public class Model {
                     System.out.println();
                     });
                 }
-                if (all == null || type.contentEquals("TunnelEntrance")) {
+                if (all == null || type.contains("TunnelEntrance")) {
                     tunnelEntrances.forEach((String nodeName, TunnelEntrance node) -> {
                     System.out.println(nodeName);
                     System.out.println("\tcoordinates: " + node.getX() + ", " + node.getY());
@@ -542,7 +542,7 @@ public class Model {
                     System.out.println();
                     });
                 }
-                if (all == null || type.contentEquals("Engine") || type.contentEquals("Train")) {
+                if (all == null || type.contains("Engine") || type.contains("Train")) {
                     engines.forEach(((String trainName, Engine trainObject) -> {
                         System.out.println(trainName);
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
@@ -551,7 +551,7 @@ public class Model {
                         System.out.println("\tnextCar: " + getName(trainObject.getNextCar()));
                     }));
                 }
-                if (all == null || type.contentEquals("Car") || type.contentEquals("Train")) {
+                if (all == null || type.contains("Car") || type.contains("Train")) {
                     cars.forEach(((String trainName, Car trainObject) -> {
                         System.out.println(trainName);
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
@@ -563,7 +563,7 @@ public class Model {
                     }));
                     
                 }
-                if (all == null || type.contentEquals("CoalCar") || type.contentEquals("Train")) {
+                if (all == null || type.contains("CoalCar") || type.contains("Train")) {
                     coalCars.forEach(((String trainName, CoalCar trainObject) -> {
                         System.out.println(trainName);
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());

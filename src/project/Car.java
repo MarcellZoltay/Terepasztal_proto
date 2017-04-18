@@ -58,52 +58,37 @@ public class Car extends Train {
      *A vagonban utazó utasok leszállítása, azonos színű állomáson
      * üres vagon színe-->Gray
      */
-    public void getOffPassengers() {
-        if (!color.isEmpty())
-            color=color.opposit();
+    public boolean getOffPassengers() {
+        Train t = this;
+        do {
+            if (t.getColor().equals(Color.COAL_CAR))
+                t = ((CoalCar)t).getPrevTrain();
+            else t = ((Car)t).getPrevTrain();
+            if (!t.getColor().isEmpty()) return false;
+        } while(!t.getColor().equals(Color.ENGINE));
+        
+        
+        color=color.opposit();
+        return true;
     }
     /**
      *A vagonban utazó utasok felszállítása, azonos színű állomáson
      * üres vagon színe-->Gray
      */
     public void getOnPassengers() {
-        if (color.isEmpty())
-            color=color.opposit();
+        color=color.opposit();
     }
 
     @Override
     public Status move(){
-
         Node next = onNode.getNextNode(this);
-        prevNode = onNode;
-        onNode = next;
-
-
-       /* prevNode=onNode;
-        System.out.println(onNode.toString());
-        System.out.printf(this.toString());
-        onNode=onNode.getNextNode(this);*/
         prevNode.removeTrain(this);
-        onNode.addTrain(this);
-        //x=onNode.getX();
-        //y=onNode.getY();
-        //yEnd=onNode.getY();
-        //xEnd=onNode.getX();
-        //prevNode.removeTrain(this);
+        next.addTrain(this);
 
-        Status ret = Status.NOT_EMPTY_CAR;
-        if(nextCar != null){
-            ret = nextCar.move();
-        }
-
-
-        if(ret.equals(Status.NOT_EMPTY_CAR))
-            return ret;
-        else {
-            if (!color.isEmpty()) return Status.NOT_EMPTY_CAR;
+        if (nextCar != null && nextCar.move().equals(Status.DELETE_TRAIN)) {
             if (color.isEmpty()) return Status.DELETE_TRAIN;
         }
-        return null;
+        return Status.NOT_EMPTY_CAR;
     }
 
 

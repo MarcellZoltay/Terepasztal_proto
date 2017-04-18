@@ -47,6 +47,7 @@ public abstract class Node extends MapItem {
      */
     public void addTrain(Train t) {
         trainsOn.add(t);
+        t.setOnNode(this);
     }
 
     /**
@@ -62,7 +63,10 @@ public abstract class Node extends MapItem {
      */
     public Node getNextNode(Train t) {
         Node temp = t.prevNode;
-
+        
+        if (temp == t.onNode) {
+            return nextNode == null ? prevNode : nextNode; 
+        }
         if (temp == nextNode){
             return prevNode;
         }

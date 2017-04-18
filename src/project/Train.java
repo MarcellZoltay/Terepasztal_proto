@@ -45,7 +45,6 @@ public abstract class Train extends MapItem {
         xEnd = 0;
         yEnd = 0;
         onNode = null;
-        //nextCar = null;
         prevNode = null;
         color = null;
     }

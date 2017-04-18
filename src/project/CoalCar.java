@@ -65,11 +65,9 @@ public class CoalCar extends Train {
     @Override
     public Status move(){
         Node next = onNode.getNextNode(this);
-        prevNode = onNode;
-        onNode = next;
 
         prevNode.removeTrain(this);
-        onNode.addTrain(this);
+        next.addTrain(this);
 
         if(nextCar != null)
             return nextCar.move();

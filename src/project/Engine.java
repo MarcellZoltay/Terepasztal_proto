@@ -41,13 +41,13 @@ public class Engine extends Train {
         if(!on.isEmpty()) return Status.CRASHED;
 
         Node next = onNode.getNextNode(this);
-        prevNode = onNode;
-        onNode = next;
-
         prevNode.removeTrain(this);
-        onNode.addTrain(this);
-
-        //System.out.println(nextCar.toString());
+        next.addTrain(this);
+        try {
+            ((Station)next).setGetOff();
+        }
+        catch (Exception e) {}
+        
         return nextCar.move();
     }
 
