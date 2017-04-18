@@ -555,6 +555,7 @@ public class Model {
                     cars.forEach(((String trainName, Car trainObject) -> {
                         System.out.println(trainName);
                         System.out.println("\tcoordinates: " + trainObject.getX() + ", " + trainObject.getY() + ", " + trainObject.getEndX() + ", " + trainObject.getEndY());
+                        System.out.println("\tcolor: " + trainObject.getColor().toString());
                         System.out.println("\tonNode: " + getNodeName(trainObject.getOnNode()));
                         System.out.println("\tprevNode: " + getNodeName(trainObject.getPrevNode()));
                         System.out.println("\tnextTrain: " + getName(trainObject.getNextCar()));
