@@ -1,0 +1,28 @@
+c1
+	coordinates: 0, 0, 0, 0
+	color: GREEN
+	onNode: r1
+	prevNode: r1
+	nextTrain: c2
+	prevTrain: e1
+c2
+	coordinates: 0, 0, 0, 0
+	color: RED
+	onNode: r1
+	prevNode: r1
+	nextTrain: null
+	prevTrain: c1
+c1
+	coordinates: 0, 0, 0, 0
+	color: GREEN_GRAY
+	onNode: st1
+	prevNode: r1
+	nextTrain: c2
+	prevTrain: e1
+c2
+	coordinates: 0, 0, 0, 0
+	color: RED
+	onNode: st1
+	prevNode: r1
+	nextTrain: null
+	prevTrain: c1
